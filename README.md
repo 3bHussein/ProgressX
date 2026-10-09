@@ -1,31 +1,63 @@
-<div align="center">
-
-<img src="assets/progressx-icon-1024.png" width="130" alt="ProgressX logo">
-
 # ProgressX
 ### Train. Track. Progress.
 
-A personal workout, progressive-overload, nutrition, reminder and fitness-calculator tracker that can run as a local web app or Android APK.
+ProgressX is a workout + nutrition tracker available in **two forms inside this same repository**:
 
-[![Build ProgressX APK](https://github.com/OWNER/REPO/actions/workflows/android-build.yml/badge.svg)](https://github.com/OWNER/REPO/actions/workflows/android-build.yml)
+1. **Web / HTML version** — open `web/ProgressX.html` in a browser.
+2. **Android APK version** — built from the `android/` project using GitHub Actions.
 
-</div>
+Both versions use the same ProgressX interface and can use the same Google Sheets + Apps Script backend.
 
-> **Template repository:** no private workout history is included. The Excel template contains only clearly marked demo rows.
+> Important: the current Android APK embeds the same ProgressX HTML app, so it also supports Google Sheet sync. In addition, Android WebView keeps local app data on the phone between launches.
 
-## What is inside
+---
 
-- Workout logging with raw set notation (`25*7, 27.5*6, 30*6`)
-- Progressive-overload analysis and estimated 1RM trends
-- Nutrition diary with calories, protein, carbs and fat
-- Food Library, barcode lookup and Smart Food Search
-- Daily supplement + water reminders
-- TDEE, macros, BMI, 1RM, volume and hydration calculators
-- Google Sheets + Apps Script sync
-- Android WebView wrapper with camera permission support
-- GitHub Actions workflow that builds an APK in the cloud
+## What ProgressX includes
 
-## App tour
+- Workout logging
+- Progressive overload analysis
+- Estimated 1RM trends
+- Nutrition diary
+- Food Library
+- Barcode lookup
+- Smart Food Search
+- Calories / Protein / Carbs / Fat tracking
+- Daily supplement reminders
+- Water tracking
+- TDEE calculator
+- Macro calculator
+- BMI calculator
+- 1RM calculator
+- Training volume calculator
+- Hydration calculator
+- JSON backup / restore
+- Google Sheets synchronization
+- Android APK build workflow
+
+---
+
+## Choose how you want to use ProgressX
+
+| Version | Runs on | Local storage | Google Sheet sync | Internet required |
+|---|---|---|---|---|
+| Web / HTML | Browser | Yes | Yes, when connected | Only for sync / online food search |
+| Android APK | Android phone | Yes, inside app data | Yes, when connected | Only for sync / online food search |
+
+### Where is data stored?
+
+**Web version**
+- ProgressX keeps local browser data for speed and offline continuity.
+- When Apps Script is configured, supported data is synchronized with your Google Sheet.
+
+**Android APK**
+- Local ProgressX data is stored in Android WebView app storage under the ProgressX app.
+- Closing the app or restarting the phone does **not** remove it.
+- Uninstalling ProgressX or clearing app storage removes the local copy.
+- The current APK still contains Google Sheet sync, so synchronized data can also exist in the user's own Google Sheet.
+
+---
+
+## Screenshots
 
 | Home | Workout Log | Progress |
 |---|---|---|
@@ -39,64 +71,125 @@ A personal workout, progressive-overload, nutrition, reminder and fitness-calcul
 
 ![Smart Food Search](screenshots/08-smart-food-search.png)
 
-| Settings |
-|---|
-| ![Settings](screenshots/07-settings.png) |
+### Settings
 
-## Quick start
+![Settings](screenshots/07-settings.png)
+
+---
+
+# Option A — Web / HTML version
+
+Full guide: **[docs/WEB.md](docs/WEB.md)**
+
+Quick setup:
 
 1. Download or clone this repository.
-2. Upload `template/ProgressX-Template-Demo.xlsx` to Google Drive and convert it to Google Sheets.
-3. Open **Extensions → Apps Script** and paste `backend/Code.gs` plus `backend/appsscript.json`.
-4. Run `testProgressXPermissions()` once.
-5. Deploy the script as a Web App: **Execute as Me / Anyone**.
-6. Open `web/ProgressX.html` → **Settings** → paste your `/exec` URL.
+2. Upload `template/ProgressX-Template-Demo.xlsx` to Google Drive.
+3. Open it as Google Sheets.
+4. From the Sheet, open **Extensions → Apps Script**.
+5. Paste `backend/Code.gs`.
+6. Enable the manifest file and paste `backend/appsscript.json`.
+7. Run `testProgressXPermissions()` once and approve permissions.
+8. Deploy as a Web App:
+   - Execute as: **Me**
+   - Who has access: **Anyone**
+9. Copy the Apps Script `/exec` URL.
+10. Open `web/ProgressX.html`.
+11. Open **Settings** and paste the `/exec` URL.
+12. Test Workout, Food, Reminder and Nutrition sync.
 
-Full instructions: **[docs/SETUP.md](docs/SETUP.md)**
+---
 
-## Build the Android APK without Android Studio
+# Option B — Android APK
 
-This repo includes `.github/workflows/android-build.yml`.
+Full guide: **[docs/ANDROID.md](docs/ANDROID.md)**
 
-1. Open **Actions** in GitHub.
-2. Select **Build ProgressX APK**.
-3. Click **Run workflow**.
-4. When the run is green, open it and download the **ProgressX-APK** artifact.
-5. Extract `app-debug.apk` and install it on Android.
+You do **not** need Android Studio.
+
+1. Open this repository on GitHub.
+2. Open **Actions**.
+3. Select **Build ProgressX APK**.
+4. Click **Run workflow**.
+5. Wait for a green successful run.
+6. Open the completed run.
+7. Download the **ProgressX-APK** artifact.
+8. Extract the ZIP.
+9. Install `app-debug.apk` on Android.
+
+The Android project is located in:
+
+`android/`
+
+The embedded ProgressX web app is located in:
+
+`android/app/src/main/assets/index.html`
+
+If you update the web app and want the APK to contain the same version, copy the new HTML into that path and rebuild the APK.
+
+---
+
+## Google Sheet template
+
+The template workbook is:
+
+`template/ProgressX-Template-Demo.xlsx`
+
+It contains **demo data only** and is designed to show the correct structure.
+
+Expected sheets include:
+
+- Workout Log
+- Program
+- Reminders
+- Daily Log
+- Food Products
+- Food Log
+- Nutrition Settings
+
+Each person should use their **own** Google Sheet and Apps Script deployment.
+
+---
 
 ## Repository structure
 
 ```text
 ProgressX/
-├── .github/workflows/android-build.yml
-├── android/                 # Android Studio / Gradle project
-├── assets/                  # icon + promo artwork
-├── backend/                 # Google Apps Script backend + manifest
-├── docs/SETUP.md
-├── screenshots/             # screenshots for each main app option
-├── template/ProgressX-Template-Demo.xlsx
-├── web/ProgressX.html
+├── .github/
+│   └── workflows/
+│       └── android-build.yml
+├── android/
+│   └── app/
+│       └── src/main/assets/index.html
+├── assets/
+├── backend/
+│   ├── Code.gs
+│   └── appsscript.json
+├── docs/
+│   ├── SETUP.md
+│   ├── WEB.md
+│   └── ANDROID.md
+├── screenshots/
+├── template/
+│   └── ProgressX-Template-Demo.xlsx
+├── web/
+│   ├── ProgressX.html
+│   └── README.md
 ├── LICENSE
 └── README.md
 ```
 
-## Template data
-
-The workbook uses the same sheet names expected by ProgressX:
-
-- `Workout Log`
-- `Program`
-- `Reminders`
-- `Daily Log`
-- `Food Products`
-- `Food Log`
-- `Nutrition Settings`
-
-Demo rows are there only to show the expected format. There is **no personal workout or nutrition history** in the template.
+---
 
 ## Privacy
 
-ProgressX does not require a shared central database. Each person can make their own Sheet and Apps Script deployment, keeping their tracker separate from other users.
+ProgressX does not require one central shared user database.
+
+For the public template:
+- each user should create their own Google Sheet;
+- each user should create their own Apps Script deployment;
+- users should not share private Apps Script URLs or personal Sheet data in the repository.
+
+---
 
 ## License
 
