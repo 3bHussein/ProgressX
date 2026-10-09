@@ -1,32 +1,45 @@
-# ProgressX Setup
+# ProgressX Complete Setup
 
-## 1. Create your Google Sheet
-Upload `template/ProgressX-Template-Demo.xlsx` to Google Drive and open it as a Google Sheet. The rows marked **DEMO** are examples only; delete them when you are ready for real data.
+ProgressX can be used in two ways from the same repository.
 
-## 2. Add the Apps Script backend
-From the Sheet: **Extensions → Apps Script**.
+## Option A — Web / HTML
 
-- Replace `Code.gs` with `backend/Code.gs`.
-- Enable **Show appsscript.json manifest file in editor** in Project Settings.
-- Replace the manifest with `backend/appsscript.json`.
-- Run `testProgressXPermissions()` once and approve the requested permissions.
+Use:
 
-## 3. Deploy
-Choose **Deploy → New deployment → Web app**:
+`web/ProgressX.html`
 
-- Execute as: **Me**
-- Who has access: **Anyone**
+Full instructions:
 
-Copy the `/exec` URL.
+**[WEB.md](WEB.md)**
 
-## 4. Connect ProgressX
-Open `web/ProgressX.html`, go to **Settings**, paste the Apps Script `/exec` URL and save.
+This version stores local browser data and can synchronize supported records to the user's own Google Sheet.
 
-## 5. Android APK with GitHub Actions
-Open the repository **Actions** tab → **Build ProgressX APK** → **Run workflow**. After the job succeeds, download the **ProgressX-APK** artifact.
+## Option B — Android APK
 
-## Notes
-- Barcode and packaged-food search use Open Food Facts.
-- Common-food search works locally and prioritizes common foods before packaged products.
-- Nutrition data is an estimate; verify labels when precision matters.
-- Each user should use their own Google Sheet and Apps Script deployment.
+Use the Android project:
+
+`android/`
+
+Full instructions:
+
+**[ANDROID.md](ANDROID.md)**
+
+The APK stores local data inside Android app storage and currently also contains the Google Sheet synchronization logic.
+
+## Shared backend setup
+
+Both versions can use:
+
+- `template/ProgressX-Template-Demo.xlsx`
+- `backend/Code.gs`
+- `backend/appsscript.json`
+
+Recommended public-template workflow:
+
+1. Copy the Excel template into a personal Google Sheet.
+2. Install the Apps Script backend.
+3. Authorize it.
+4. Deploy it as a Web App.
+5. Use that user's own `/exec` URL.
+
+Do not share a private personal Sheet as the database for every public user.
