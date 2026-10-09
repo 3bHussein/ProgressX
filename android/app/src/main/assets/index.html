@@ -1,0 +1,3154 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0a0e17"><meta name="description" content="Google Sheet synced workout tracker with direct add/edit/delete, progressive overload, analytics, nutrition and gym calculators, JSON/CSV backup.">
+<title>ProgressX — Train. Track. Progress.</title>
+<style>
+:root{--bg:#070a11;--bg2:#0d1320;--card:rgba(17,24,39,.78);--card2:#111827;--soft:#182234;--text:#f7fafc;--muted:#93a4bb;--line:#263449;--accent:#7c3aed;--accent2:#22c55e;--cyan:#22d3ee;--warn:#f59e0b;--bad:#fb7185;--shadow:0 18px 60px rgba(0,0,0,.28);--radius:22px}
+html[data-theme="light"]{--bg:#f4f7fb;--bg2:#eaf0f8;--card:rgba(255,255,255,.9);--card2:#fff;--soft:#edf2f7;--text:#101828;--muted:#667085;--line:#dbe3ee;--shadow:0 16px 50px rgba(15,23,42,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at 20% 0%,rgba(124,58,237,.18),transparent 30%),radial-gradient(circle at 100% 20%,rgba(34,211,238,.10),transparent 24%),linear-gradient(180deg,var(--bg),var(--bg2));color:var(--text)}button,input,select,textarea{font:inherit}.app{max-width:1180px;margin:auto;padding:18px 18px 104px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:4px 0 18px}.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;font-size:24px;background:linear-gradient(135deg,var(--accent),var(--cyan));box-shadow:0 10px 28px rgba(124,58,237,.28)}h1,h2,h3,p{margin-top:0}.brand h1{font-size:21px;margin:0}.brand small{display:block;color:var(--muted);margin-top:2px}.iconbtn{width:44px;height:44px;border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:14px;cursor:pointer}.hero{padding:24px;border:1px solid var(--line);border-radius:28px;background:linear-gradient(135deg,rgba(124,58,237,.17),rgba(34,211,238,.07)),var(--card);box-shadow:var(--shadow);position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;background:rgba(124,58,237,.12);right:-60px;top:-80px;filter:blur(2px)}.eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--cyan);font-weight:800}.hero h2{font-size:clamp(27px,6vw,44px);margin:8px 0 8px}.hero p{color:var(--muted);max-width:680px;margin-bottom:18px}.actions{display:flex;gap:9px;flex-wrap:wrap}.btn{border:0;border-radius:14px;padding:12px 15px;font-weight:800;cursor:pointer;transition:.18s;display:inline-flex;align-items:center;justify-content:center;gap:7px}.btn:active{transform:scale(.98)}.btn.primary{background:linear-gradient(135deg,var(--accent),#9333ea);color:white}.btn.green{background:var(--accent2);color:#04120a}.btn.soft{background:var(--soft);color:var(--text);border:1px solid var(--line)}.btn.danger{background:rgba(251,113,133,.13);color:#fecdd3;border:1px solid rgba(251,113,133,.25)}.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin:14px 0}.kpi{padding:16px;border:1px solid var(--line);background:var(--card);border-radius:18px}.kpi .v{font-size:25px;font-weight:900}.kpi .l{font-size:12px;color:var(--muted);margin-top:3px}.section{display:none}.section.active{display:block}.panel{border:1px solid var(--line);background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-top:14px}.panelHead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}.panelHead h3{margin:0;font-size:18px}.muted{color:var(--muted)}.tiny{font-size:12px}.chips{display:flex;gap:8px;overflow:auto;padding-bottom:4px;scrollbar-width:none}.chip{white-space:nowrap;border:1px solid var(--line);color:var(--muted);background:var(--soft);padding:9px 12px;border-radius:999px;font-weight:750;cursor:pointer}.chip.active{background:rgba(124,58,237,.18);color:#c4b5fd;border-color:rgba(124,58,237,.48)}.filters{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:9px;margin:12px 0}.field,input,select,textarea{width:100%;border:1px solid var(--line);background:var(--soft);color:var(--text);border-radius:14px;padding:12px 13px;outline:none}.field:focus,input:focus,select:focus,textarea:focus{border-color:rgba(124,58,237,.75);box-shadow:0 0 0 3px rgba(124,58,237,.12)}.logGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.logCard{background:var(--card2);border:1px solid var(--line);border-radius:18px;padding:15px;cursor:pointer}.logTop{display:flex;justify-content:space-between;gap:12px}.logTitle{font-weight:900}.meta{display:flex;gap:6px;flex-wrap:wrap;margin:7px 0}.pill{font-size:11px;padding:5px 8px;border-radius:999px;background:var(--soft);color:var(--muted);border:1px solid var(--line)}.pill.ok{color:#86efac}.pill.skip{color:#fda4af}.pill.warn{color:#fde68a}.performance{font-weight:800;line-height:1.5;margin:7px 0;word-break:break-word}.note{font-size:13px;color:var(--muted);background:var(--soft);border-radius:12px;padding:9px 10px;margin-top:8px}.empty{text-align:center;padding:30px;color:var(--muted)}.two{display:grid;grid-template-columns:1.15fr .85fr;gap:12px}.chart{height:210px;display:flex;align-items:flex-end;gap:5px;padding:15px 4px 2px;border-bottom:1px solid var(--line)}.bar{flex:1;min-width:7px;border-radius:7px 7px 2px 2px;background:linear-gradient(180deg,var(--cyan),var(--accent));position:relative}.bar:hover:after{content:attr(data-tip);position:absolute;bottom:calc(100% + 7px);left:50%;transform:translateX(-50%);background:#000;color:#fff;padding:5px 7px;border-radius:7px;font-size:10px;white-space:nowrap}.calcNav{display:flex;gap:8px;overflow:auto;scrollbar-width:none;margin-bottom:14px}.calcGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.calcCard{border:1px solid var(--line);background:var(--card2);border-radius:20px;padding:17px}.calcCard h3{margin-bottom:6px}.calcCard p{font-size:13px;color:var(--muted);line-height:1.45}.formGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}.full{grid-column:1/-1}.resultBox{margin-top:12px;padding:13px;border-radius:15px;background:linear-gradient(135deg,rgba(124,58,237,.14),rgba(34,211,238,.08));border:1px solid rgba(124,58,237,.28)}.resultBig{font-size:24px;font-weight:900}.resultRows{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:8px}.mini{background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:10px}.mini b{display:block;font-size:16px}.formula{font-size:11px;color:var(--muted);margin-top:8px}.settingsGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.callout{border:1px solid rgba(34,211,238,.24);background:rgba(34,211,238,.07);padding:13px;border-radius:15px;color:var(--muted);font-size:13px;line-height:1.5}.bottomNav{position:fixed;z-index:30;left:50%;bottom:12px;transform:translateX(-50%);display:flex;gap:4px;padding:7px;background:rgba(8,12,20,.88);backdrop-filter:blur(18px);border:1px solid #263449;border-radius:19px;box-shadow:0 18px 50px rgba(0,0,0,.35);max-width:calc(100vw - 20px)}html[data-theme="light"] .bottomNav{background:rgba(255,255,255,.9)}.navbtn{border:0;background:transparent;color:#8ca0ba;border-radius:13px;padding:9px 12px;min-width:70px;cursor:pointer;font-size:11px;font-weight:800}.navbtn span{display:block;font-size:18px;margin-bottom:2px}.navbtn.active{background:rgba(124,58,237,.18);color:#c4b5fd}.modalWrap{display:none;position:fixed;z-index:50;inset:0;background:rgba(0,0,0,.58);padding:16px;overflow:auto}.modalWrap.open{display:flex;align-items:flex-end;justify-content:center}.modal{width:min(680px,100%);background:var(--card2);border:1px solid var(--line);border-radius:24px 24px 18px 18px;padding:18px;box-shadow:var(--shadow);max-height:92vh;overflow:auto}.modalHead{display:flex;justify-content:space-between;align-items:center;gap:10px}.weekHero{display:flex;align-items:center;gap:14px}.weekCircle{width:72px;height:72px;border-radius:24px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--cyan));font-weight:950;font-size:19px;color:white}.quickDays{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}.dayBtn{border:1px solid var(--line);background:var(--soft);color:var(--text);padding:12px 8px;border-radius:14px;cursor:pointer;font-weight:800;font-size:12px}.syncDot{display:inline-block;width:8px;height:8px;border-radius:50%;background:currentColor;margin-right:5px}.hide{display:none!important}
+@media(max-width:840px){.two,.calcGrid,.settingsGrid{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}.filters{grid-template-columns:1fr 1fr}.filters .search{grid-column:1/-1}.logGrid{grid-template-columns:1fr}.quickDays{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.app{padding:10px 10px 100px}.topbar{margin-top:0}.brand small{display:none}.hero{padding:19px;border-radius:23px}.hero h2{font-size:28px}.kpis{gap:8px}.kpi{padding:13px}.kpi .v{font-size:22px}.panel{padding:13px;border-radius:19px}.filters{grid-template-columns:1fr}.filters .search{grid-column:auto}.formGrid{grid-template-columns:1fr}.full{grid-column:auto}.resultRows{grid-template-columns:1fr 1fr}.navbtn{min-width:57px;padding:8px 8px}.navbtn .label{font-size:10px}.modalWrap{padding:0}.modal{border-radius:24px 24px 0 0;max-height:94vh}}
+</style>
+
+<style id="v21-row-layout">
+/* V21 — one exercise per row, with each parsed set on its own line */
+.logGrid{display:block!important}
+.logCard{
+  display:grid!important;
+  grid-template-columns:minmax(220px,1.2fr) minmax(320px,2fr) auto;
+  gap:14px;
+  align-items:start;
+  margin-bottom:9px;
+  cursor:pointer;
+}
+.logIdentity{min-width:0}
+.logActions{display:flex;flex-direction:column;align-items:flex-end;gap:7px;min-width:92px}
+.setTable{display:grid;gap:5px;min-width:0}
+.setRow{
+  display:grid;
+  grid-template-columns:50px minmax(70px,1fr) 22px minmax(58px,.8fr);
+  gap:7px;
+  align-items:center;
+  min-height:36px;
+  padding:6px 9px;
+  border:1px solid var(--line);
+  border-radius:11px;
+  background:var(--soft);
+}
+.setNo{font-size:11px;font-weight:900;color:var(--cyan);letter-spacing:.04em}
+.setWeight,.setReps{font-size:14px;font-weight:900}
+.setX{text-align:center;color:var(--muted);font-weight:900}
+.setRaw{grid-column:2/5;font-size:13px;font-weight:800;word-break:break-word}
+.rawPerf{margin-top:6px;color:var(--muted);font-size:10px;opacity:.72;word-break:break-word}
+.logCard>.note{grid-column:2/4;margin-top:-3px}
+@media(max-width:760px){
+  .logCard{grid-template-columns:1fr!important;gap:10px}
+  .logActions{flex-direction:row;align-items:center;min-width:0}
+  .logActions .btn{margin-left:auto}
+  .logCard>.note{grid-column:auto;margin-top:0}
+}
+@media(max-width:420px){
+  .setRow{grid-template-columns:43px minmax(58px,1fr) 18px minmax(48px,.75fr);gap:5px;padding:6px 7px}
+  .setWeight,.setReps{font-size:13px}
+}
+</style>
+
+
+<style id="v22-daily-reminders">
+.reminderGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.reminderCard{border:1px solid var(--line);background:var(--card2);border-radius:16px;padding:13px}
+.reminderCard.done{border-color:#22c55e66;background:#22c55e10}
+.reminderTop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.reminderName{font-weight:900;font-size:15px}
+.reminderMeta{font-size:12px;color:var(--muted);margin-top:3px}
+.reminderControls{display:grid;grid-template-columns:1fr 116px;gap:8px;margin-top:9px}
+.waterBar{height:11px;border:1px solid var(--line);background:var(--soft);border-radius:999px;overflow:hidden}
+.waterFill{height:100%;width:0%;background:linear-gradient(90deg,var(--cyan),var(--accent));transition:width .25s ease}
+.reminderNotice{position:fixed;z-index:80;right:14px;top:14px;max-width:min(380px,calc(100vw - 28px));padding:13px 14px;border-radius:15px;border:1px solid var(--line);background:var(--card2);box-shadow:var(--shadow);display:none}
+.reminderNotice.show{display:block}
+.reminderNotice b{display:block;margin-bottom:3px}
+.dailyActions{display:flex;gap:7px;flex-wrap:wrap}
+@media(max-width:760px){.reminderGrid{grid-template-columns:1fr}.reminderControls{grid-template-columns:1fr 108px}}
+</style>
+
+
+<style id="v24-daily-ui">
+.dailyToolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.dailyForm{
+  display:none;
+  margin-top:12px;
+  padding:14px;
+  border:1px solid var(--line);
+  background:linear-gradient(135deg,#8b5cf612,#22d3ee08),var(--card2);
+  border-radius:17px
+}
+.dailyForm.open{display:block}
+.dailyFormGrid{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 120px;
+  gap:8px
+}
+.dailyFormActions{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}
+.notifyBanner{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:center;
+  border:1px solid #f59e0b55;
+  background:#f59e0b10;
+  border-radius:15px;
+  padding:12px 13px;
+  margin-bottom:12px
+}
+.notifyBanner.good{border-color:#22c55e55;background:#22c55e0d}
+.notifyBanner .title{font-weight:900}
+.notifyBanner .sub{font-size:12px;color:var(--muted);margin-top:2px}
+.reminderSwitch{
+  appearance:none;
+  width:42px!important;
+  height:24px;
+  border-radius:999px;
+  background:var(--line);
+  position:relative;
+  cursor:pointer;
+  border:0!important;
+  padding:0!important
+}
+.reminderSwitch:before{
+  content:"";
+  position:absolute;
+  width:18px;height:18px;
+  left:3px;top:3px;
+  border-radius:50%;
+  background:white;
+  transition:.18s
+}
+.reminderSwitch:checked{background:var(--green)}
+.reminderSwitch:checked:before{transform:translateX(18px)}
+.reminderQuick{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  margin-top:8px
+}
+.reminderQuick button{padding:7px 9px!important;font-size:12px}
+@media(max-width:760px){
+  .dailyFormGrid{grid-template-columns:1fr 1fr}
+  .dailyFormGrid .wide{grid-column:1/-1}
+}
+@media(max-width:480px){
+  .dailyFormGrid{grid-template-columns:1fr}
+  .dailyFormGrid .wide{grid-column:auto}
+  .notifyBanner{align-items:flex-start;flex-direction:column}
+}
+</style>
+
+
+<style id="v25-alarm-popup">
+.alarmOverlay{
+  position:fixed;z-index:120;inset:0;
+  display:none;align-items:center;justify-content:center;
+  padding:18px;background:#020617cc;backdrop-filter:blur(8px)
+}
+.alarmOverlay.show{display:flex}
+.alarmBox{
+  width:min(430px,100%);
+  border:1px solid #8b5cf688;
+  background:var(--card2);
+  border-radius:24px;
+  padding:22px;
+  box-shadow:0 30px 90px #000b;
+  text-align:center;
+  animation:alarmPop .22s ease-out
+}
+.alarmIcon{
+  width:76px;height:76px;margin:0 auto 13px;
+  display:grid;place-items:center;border-radius:24px;
+  font-size:38px;background:linear-gradient(135deg,#8b5cf62e,#22d3ee22);
+  border:1px solid #8b5cf655
+}
+.alarmBox h2{margin:5px 0 7px;font-size:25px}
+.alarmBox .alarmAmount{font-size:16px;font-weight:900;color:var(--cyan);margin-bottom:4px}
+.alarmBox .alarmTime{font-size:12px;color:var(--muted);margin-bottom:17px}
+.alarmActions{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.alarmPulse{animation:alarmPulse 1.1s infinite}
+@keyframes alarmPop{from{opacity:0;transform:scale(.9) translateY(14px)}to{opacity:1;transform:scale(1) translateY(0)}}
+@keyframes alarmPulse{0%,100%{box-shadow:0 0 0 0 #8b5cf655}50%{box-shadow:0 0 0 16px #8b5cf600}}
+@media(max-width:420px){.alarmActions{grid-template-columns:1fr}.alarmBox{padding:18px}}
+</style>
+
+
+<style id="v26-progress">
+.progressFilters{display:grid;grid-template-columns:1fr 1.4fr;gap:9px;margin-top:10px}
+.progressStats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+.progressStat{padding:14px;border-radius:16px;border:1px solid var(--line);background:var(--card2)}
+.progressStat b{display:block;font-size:21px;margin-bottom:3px}.progressStat span{font-size:11px;color:var(--muted)}
+.trendChart{height:240px;display:flex;align-items:flex-end;gap:7px;padding:24px 5px 4px;border-bottom:1px solid var(--line);overflow-x:auto}
+.trendCol{min-width:28px;flex:1;max-width:54px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:5px}
+.trendBar{width:100%;min-height:7px;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,var(--cyan),var(--accent));position:relative}
+.trendBar.pr{box-shadow:0 0 0 2px #22c55e55 inset}.trendLabel{font-size:9px;color:var(--muted);white-space:nowrap}
+.progressSession{border:1px solid var(--line);background:var(--card2);border-radius:16px;padding:13px;margin-bottom:8px}
+.progressSessionHead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin-bottom:9px}
+.progressSessionTitle{font-weight:900}.progressSessionMeta{font-size:11px;color:var(--muted);margin-top:2px}
+.progressBadges{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}.progressSummary{line-height:1.55}
+.progressSummary strong{color:var(--text)}.progressEmpty{padding:26px;text-align:center;color:var(--muted)}
+@media(max-width:760px){.progressStats{grid-template-columns:repeat(2,1fr)}.progressFilters{grid-template-columns:1fr}}
+</style>
+
+
+<style id="progressx-mobile-v27">
+html{-webkit-text-size-adjust:100%}
+body{overflow-x:hidden}
+button,input,select,textarea{font-size:16px}
+button,.btn,.navbtn,.chip,.icon{touch-action:manipulation}
+.btn,.navbtn,.chip{min-height:44px}
+input,select,textarea{min-height:44px}
+textarea{resize:vertical}
+
+@media(max-width:820px){
+  body{
+    padding-bottom:calc(86px + env(safe-area-inset-bottom));
+  }
+  .wrap,.app,.container,main{
+    width:100%;
+    max-width:100%;
+  }
+  .topbar,.header,.hero{
+    padding-left:14px!important;
+    padding-right:14px!important;
+  }
+  .panel{
+    border-radius:16px!important;
+    padding:14px!important;
+  }
+  .two,.three,.grid2,.grid3,.formGrid,.formgrid{
+    grid-template-columns:1fr!important;
+  }
+  .statGrid,.kpis{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  .progressStats{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  .progressFilters{
+    grid-template-columns:1fr!important;
+  }
+  .panelHead,.head{
+    gap:10px;
+    align-items:flex-start!important;
+  }
+  .actions,.dailyActions{
+    width:100%;
+  }
+  .actions .btn,.dailyActions .btn{
+    flex:1 1 auto;
+  }
+  .logCard{
+    grid-template-columns:1fr!important;
+    padding:13px!important;
+  }
+  .logActions{
+    width:100%;
+    flex-direction:row!important;
+    justify-content:space-between!important;
+    align-items:center!important;
+  }
+  .logActions .btn{
+    margin-left:auto;
+  }
+  .setRow{
+    grid-template-columns:48px minmax(64px,1fr) 18px minmax(54px,.8fr)!important;
+  }
+  .trendChart{
+    height:210px;
+    padding-bottom:6px;
+  }
+  .progressSessionHead{
+    flex-direction:column;
+    align-items:stretch;
+  }
+  .progressBadges{
+    justify-content:flex-start;
+  }
+  .reminderControls{
+    grid-template-columns:1fr!important;
+  }
+  .dailyFormGrid{
+    grid-template-columns:1fr!important;
+  }
+  .alarmBox{
+    max-height:calc(100vh - 32px);
+    overflow:auto;
+  }
+
+  /* Mobile bottom navigation */
+  nav,.bottomNav,.nav{
+    position:fixed!important;
+    left:8px!important;
+    right:8px!important;
+    bottom:calc(8px + env(safe-area-inset-bottom))!important;
+    z-index:100!important;
+    display:flex!important;
+    gap:6px!important;
+    padding:8px!important;
+    border:1px solid var(--line)!important;
+    border-radius:18px!important;
+    background:color-mix(in srgb,var(--card2) 92%,transparent)!important;
+    backdrop-filter:blur(16px)!important;
+    box-shadow:0 16px 45px #0005!important;
+    overflow-x:auto!important;
+    overscroll-behavior-x:contain;
+    scrollbar-width:none;
+  }
+  nav::-webkit-scrollbar,.bottomNav::-webkit-scrollbar,.nav::-webkit-scrollbar{display:none}
+  .navbtn{
+    flex:1 0 68px!important;
+    min-width:68px!important;
+    border-radius:12px!important;
+    padding:8px 7px!important;
+    display:flex!important;
+    flex-direction:column!important;
+    justify-content:center!important;
+    align-items:center!important;
+    gap:3px!important;
+    font-size:11px!important;
+  }
+  .navbtn span:first-child{
+    font-size:18px!important;
+    line-height:1!important;
+  }
+  .navbtn .label{
+    font-size:10px!important;
+    white-space:nowrap;
+  }
+}
+
+@media(max-width:520px){
+  .panel{margin-left:0!important;margin-right:0!important}
+  .statGrid,.kpis,.progressStats{
+    grid-template-columns:1fr 1fr!important;
+    gap:8px!important;
+  }
+  .stat,.kpi,.progressStat{
+    padding:11px!important;
+  }
+  .stat b,.kpi b,.progressStat b{
+    font-size:18px!important;
+  }
+  .card,.logCard,.progressSession,.reminderCard{
+    border-radius:14px!important;
+  }
+  .setRow{
+    grid-template-columns:44px minmax(58px,1fr) 16px minmax(48px,.72fr)!important;
+    padding:7px!important;
+    gap:5px!important;
+  }
+  .setNo{font-size:10px!important}
+  .setWeight,.setReps{font-size:13px!important}
+  .progressFilters select,
+  .dailyForm input,
+  .reminderControls input,
+  .reminderControls select{
+    width:100%!important;
+  }
+  .alarmActions{
+    grid-template-columns:1fr!important;
+  }
+}
+
+@media(max-width:380px){
+  .statGrid,.kpis,.progressStats{
+    grid-template-columns:1fr!important;
+  }
+  .navbtn{
+    min-width:64px!important;
+    flex-basis:64px!important;
+  }
+}
+</style>
+
+
+<style id="progressx-v28-nav-fix">
+@media(max-width:820px){
+  nav,.bottomNav,.nav{
+    left:10px!important;
+    right:10px!important;
+    bottom:calc(10px + env(safe-area-inset-bottom))!important;
+    padding:7px!important;
+    gap:7px!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    justify-content:flex-start!important;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+
+  nav::-webkit-scrollbar,
+  .bottomNav::-webkit-scrollbar,
+  .nav::-webkit-scrollbar{
+    display:none!important;
+  }
+
+  .navbtn{
+    flex:0 0 auto!important;
+    min-width:92px!important;
+    width:auto!important;
+    padding:9px 12px!important;
+    border-radius:13px!important;
+    display:flex!important;
+    flex-direction:row!important;
+    align-items:center!important;
+    justify-content:center!important;
+    gap:7px!important;
+    white-space:nowrap!important;
+    line-height:1!important;
+  }
+
+  .navbtn span:first-child{
+    font-size:17px!important;
+    flex:0 0 auto!important;
+  }
+
+  .navbtn .label{
+    display:inline-block!important;
+    max-width:none!important;
+    overflow:visible!important;
+    text-overflow:clip!important;
+    white-space:nowrap!important;
+    font-size:11px!important;
+    line-height:1!important;
+  }
+}
+
+@media(max-width:480px){
+  .navbtn{
+    min-width:88px!important;
+    padding:9px 10px!important;
+    gap:6px!important;
+  }
+
+  .navbtn .label{
+    font-size:10.5px!important;
+  }
+}
+</style>
+
+
+<style id="progressx-v29-fullwidth-nav">
+@media(max-width:820px){
+  nav,.bottomNav,.nav{
+    left:0!important;
+    right:0!important;
+    bottom:0!important;
+    width:100%!important;
+    max-width:none!important;
+    margin:0!important;
+    padding:7px 8px calc(7px + env(safe-area-inset-bottom))!important;
+    gap:6px!important;
+    border-radius:0!important;
+    border-left:0!important;
+    border-right:0!important;
+    border-bottom:0!important;
+    overflow:hidden!important;
+    display:flex!important;
+    justify-content:space-between!important;
+  }
+
+  .navbtn{
+    flex:1 1 0!important;
+    min-width:0!important;
+    width:auto!important;
+    padding:9px 5px!important;
+    gap:4px!important;
+    border-radius:10px!important;
+    flex-direction:column!important;
+    white-space:normal!important;
+  }
+
+  .navbtn span:first-child{
+    font-size:17px!important;
+    line-height:1!important;
+  }
+
+  .navbtn .label{
+    display:block!important;
+    width:100%!important;
+    max-width:100%!important;
+    overflow:visible!important;
+    text-overflow:clip!important;
+    white-space:normal!important;
+    text-align:center!important;
+    font-size:10px!important;
+    line-height:1.05!important;
+  }
+
+  body{
+    padding-bottom:calc(78px + env(safe-area-inset-bottom))!important;
+  }
+}
+
+@media(max-width:420px){
+  .navbtn{
+    padding:8px 3px!important;
+  }
+  .navbtn .label{
+    font-size:9.5px!important;
+  }
+}
+</style>
+
+
+<style id="progressx-v30-nav-real-fix">
+@media(max-width:820px){
+  .bottomNav{
+    position:fixed!important;
+    left:0!important;
+    right:0!important;
+    bottom:0!important;
+    width:100vw!important;
+    max-width:100vw!important;
+    margin:0!important;
+    transform:none!important;
+    translate:none!important;
+    border-radius:0!important;
+    padding:7px 8px calc(7px + env(safe-area-inset-bottom))!important;
+    display:flex!important;
+    justify-content:space-evenly!important;
+    align-items:stretch!important;
+    overflow:hidden!important;
+  }
+
+  .bottomNav .navbtn{
+    flex:1 1 0!important;
+    min-width:0!important;
+    max-width:none!important;
+    width:auto!important;
+  }
+}
+</style>
+
+
+<style id="progressx-v31-mobile-modal-reminders">
+@media(max-width:820px){
+  body.workout-editor-open .bottomNav{
+    display:none!important;
+  }
+  body.workout-editor-open{
+    padding-bottom:0!important;
+    overflow:hidden;
+  }
+  body.workout-editor-open .modalWrap{
+    padding:0!important;
+  }
+  body.workout-editor-open .modal{
+    width:100%!important;
+    max-width:none!important;
+    max-height:100dvh!important;
+    min-height:auto;
+    border-radius:24px 24px 0 0!important;
+    padding:18px 16px calc(20px + env(safe-area-inset-bottom))!important;
+  }
+
+  /* Clearer mobile reminder state */
+  .notifyBanner{
+    margin-top:10px;
+  }
+  .notifyBanner .sub{
+    line-height:1.45;
+  }
+}
+</style>
+
+
+<style id="progressx-v35-nutrition">
+.nutritionHero{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px
+}
+.macroCard{
+  border:1px solid var(--line);background:var(--card2);border-radius:17px;padding:14px
+}
+.macroCard b{display:block;font-size:21px}.macroCard span{font-size:11px;color:var(--muted)}
+.macroTrack{height:8px;background:var(--soft);border:1px solid var(--line);border-radius:999px;overflow:hidden;margin-top:9px}
+.macroFill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--accent));width:0;transition:.2s}
+.foodQuickGrid{display:grid;grid-template-columns:2fr 1fr 1fr auto;gap:8px;align-items:end}
+.foodProductForm{display:grid;grid-template-columns:1.7fr .7fr .8fr repeat(4,.75fr);gap:8px;align-items:end}
+.foodLibraryGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.foodProductCard,.foodLogCard{border:1px solid var(--line);background:var(--card2);border-radius:15px;padding:12px}
+.foodProductTop,.foodLogTop{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.foodMacros{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}
+.foodMealGroup{margin-top:14px}
+.foodMealTitle{font-weight:900;margin-bottom:7px;display:flex;justify-content:space-between;gap:10px}
+.nutritionSearch{margin-bottom:10px}
+.nutritionStatus{font-size:12px;color:var(--muted)}
+@media(max-width:900px){
+  .foodProductForm{grid-template-columns:1fr 1fr 1fr}
+  .foodProductForm .foodName{grid-column:1/-1}
+}
+@media(max-width:760px){
+  .nutritionHero{grid-template-columns:repeat(2,1fr)}
+  .foodQuickGrid{grid-template-columns:1fr 1fr}
+  .foodQuickGrid .foodSelect{grid-column:1/-1}
+  .foodLibraryGrid{grid-template-columns:1fr}
+  .foodProductForm{grid-template-columns:1fr 1fr}
+  .foodProductForm .foodName{grid-column:1/-1}
+}
+@media(max-width:420px){
+  .foodQuickGrid,.foodProductForm{grid-template-columns:1fr}
+  .foodQuickGrid .foodSelect,.foodProductForm .foodName{grid-column:auto}
+}
+</style>
+
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
+<style id="progressx-v36-barcode">
+.barcodeActions{display:flex;gap:8px;flex-wrap:wrap}
+.barcodeModal{
+  position:fixed;z-index:140;inset:0;background:#020617dd;
+  display:none;align-items:center;justify-content:center;padding:16px;
+  backdrop-filter:blur(8px)
+}
+.barcodeModal.show{display:flex}
+.barcodeBox{
+  width:min(520px,100%);max-height:92dvh;overflow:auto;
+  background:var(--card2);border:1px solid var(--line);border-radius:22px;padding:16px;
+  box-shadow:0 30px 100px #000b
+}
+#barcodeReader{width:100%;overflow:hidden;border-radius:16px;background:#000;margin-top:10px}
+.barcodeManual{display:grid;grid-template-columns:1fr auto;gap:8px;margin-top:10px}
+.barcodeResult{
+  display:none;margin-top:10px;padding:12px;border:1px solid var(--line);
+  background:var(--soft);border-radius:14px
+}
+.barcodeResult.show{display:block}
+.foodBarcodeLine{font-size:11px;color:var(--muted);margin-top:3px}
+.scanBadge{display:inline-flex;gap:5px;align-items:center}
+@media(max-width:480px){
+  .barcodeBox{padding:13px;border-radius:18px}
+  .barcodeManual{grid-template-columns:1fr}
+}
+</style>
+
+
+<style id="progressx-v47-online-food-search">
+.internetFoodSearch{display:grid;grid-template-columns:1fr auto;gap:8px;margin:10px 0 14px}
+.onlineFoodResults{display:grid;grid-template-columns:repeat(2,1fr);gap:9px;margin-top:10px}
+.onlineFoodCard{display:grid;grid-template-columns:72px 1fr;gap:11px;padding:11px;border:1px solid var(--line);border-radius:15px;background:var(--card2)}
+.onlineFoodImage{width:72px;height:72px;object-fit:contain;border-radius:10px;background:var(--soft)}
+.onlineFoodImage.placeholder{display:grid;place-items:center;font-size:26px}
+.onlineFoodName{font-weight:900;line-height:1.25}
+.onlineFoodBrand{font-size:11px;color:var(--muted);margin-top:2px}
+.onlineFoodActions{grid-column:1/-1;display:flex;gap:7px}
+.onlineFoodActions .btn{flex:1}
+.onlineSearchInfo{font-size:11px;color:var(--muted);margin-top:6px}
+@media(max-width:760px){.onlineFoodResults{grid-template-columns:1fr}}
+@media(max-width:480px){.internetFoodSearch{grid-template-columns:1fr}}
+</style>
+
+
+<style id="progressx-v49-smart-food-search">
+.sourceBadge{display:inline-flex;align-items:center;gap:5px;padding:4px 7px;border-radius:999px;font-size:10px;font-weight:900;border:1px solid var(--line);background:var(--soft)}
+.sourceBadge.common{border-color:#22c55e55;background:#22c55e10}
+.sourceBadge.packaged{border-color:#38bdf855;background:#38bdf810}
+.commonHint{font-size:10px;color:var(--muted);margin-top:5px;line-height:1.4}
+</style>
+
+</head>
+<body>
+<div class="app">
+<header class="topbar"><div class="brand"><div class="logo">⚡</div><div><h1>ProgressX</h1><small>Workout + nutrition control center</small></div></div><button class="iconbtn" onclick="toggleTheme()" title="Toggle theme">◐</button></header>
+
+<section id="home" class="section active">
+<div class="hero"><div class="eyebrow">Training dashboard</div><div class="weekHero"><div class="weekCircle" id="heroWeek">W19</div><div><h2 style="margin-bottom:4px">Build. Track. Progress.</h2><p style="margin:0">Your training history, notes, calculations and backups in one mobile-first app.</p></div></div><div class="actions" style="margin-top:18px"><button class="btn primary" onclick="openEditor()">＋ Log workout</button><button class="btn soft" onclick="go('calculators')">🧮 Calculators</button></div></div>
+<div class="kpis"><div class="kpi"><div class="v" id="kEntries">—</div><div class="l">Logged entries</div></div><div class="kpi"><div class="v" id="kExercises">—</div><div class="l">Exercises</div></div><div class="kpi"><div class="v" id="kWeek">—</div><div class="l">Active week</div></div><div class="kpi"><div class="v" id="kNotes">—</div><div class="l">Entries with notes</div></div></div>
+<div class="panel">
+  <div class="panelHead">
+    <div><h3>Today's nutrition</h3><div class="tiny muted">Food totals synced with your Nutrition page.</div></div>
+    <button class="btn soft" onclick="go('nutrition')">Open food diary</button>
+  </div>
+  <div class="nutritionHero">
+    <div class="macroCard"><b id="homeCalories">0 / 2200</b><span>Calories</span><div class="macroTrack"><div id="homeCaloriesBar" class="macroFill"></div></div></div>
+    <div class="macroCard"><b id="homeProtein">0 / 180g</b><span>Protein</span><div class="macroTrack"><div id="homeProteinBar" class="macroFill"></div></div></div>
+    <div class="macroCard"><b id="homeCarbs">0 / 220g</b><span>Carbs</span><div class="macroTrack"><div id="homeCarbsBar" class="macroFill"></div></div></div>
+    <div class="macroCard"><b id="homeFat">0 / 70g</b><span>Fat</span><div class="macroTrack"><div id="homeFatBar" class="macroFill"></div></div></div>
+  </div>
+</div>
+
+<div class="two"><div class="panel"><div class="panelHead"><h3>Weekly activity</h3><span class="tiny muted">entries / week</span></div><div id="weekChart" class="chart"></div></div><div class="panel"><div class="panelHead"><h3>Current week</h3><span class="tiny muted" id="weekProgressLabel">—</span></div><div class="callout" id="weekProgressText">ProgressX automatically moves the dashboard to the next week after all training days are completed or skipped.</div><div class="quickDays" id="quickDays"></div><div class="actions" style="margin-top:10px"><button class="btn soft" onclick="startNextWeek()">Start next week manually</button></div></div></div>
+<div class="panel"><div class="panelHead"><h3>Recent training</h3><button class="btn soft" onclick="go('log')">View all</button></div><div id="recent" class="logGrid"></div></div>
+</section>
+
+<section id="log" class="section"><div class="panel"><div class="panelHead"><div><h3>Workout log</h3><div class="tiny muted" id="resultCount"></div></div><button class="btn primary" onclick="openEditor()">＋ Add</button></div><div class="chips" id="dayTabs"></div><div class="filters"><input class="search" id="search" placeholder="Search exercise, performance or notes…"><select id="weekFilter"><option value="">All weeks</option></select><select id="statusFilter"><option value="">All status</option><option>Completed</option><option>Skipped</option><option>Uncertain</option><option>No data</option></select><button class="btn soft" onclick="clearFilters()">Clear</button></div><div id="logList" class="logGrid"></div></div></section>
+
+
+<section id="analytics" class="section">
+  <div class="panel">
+    <div class="panelHead">
+      <div>
+        <h3>Exercise progress</h3>
+        <div class="tiny muted">Track one exercise at a time so unrelated movements never get mixed together.</div>
+      </div>
+      <span class="pill">Focused view</span>
+    </div>
+
+    <div class="progressFilters">
+      <div>
+        <label class="tiny muted">Training day</label>
+        <select id="progressDaySelect"></select>
+      </div>
+      <div>
+        <label class="tiny muted">Exercise</label>
+        <select id="exerciseSelect"></select>
+      </div>
+    </div>
+
+    <div class="progressStats">
+      <div class="progressStat"><b id="pSessions">—</b><span>Logged sessions</span></div>
+      <div class="progressStat"><b id="pLatestTop">—</b><span>Latest top set</span></div>
+      <div class="progressStat"><b id="pBestWeight">—</b><span>Best load</span></div>
+      <div class="progressStat"><b id="pBestE1RM">—</b><span>Best estimated 1RM</span></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panelHead">
+      <div>
+        <h3>Progressive overload analysis</h3>
+        <div class="tiny muted">Latest clean session compared with the previous clean session for this exercise.</div>
+      </div>
+      <span id="overloadBadge" class="pill">—</span>
+    </div>
+    <div class="progressStats">
+      <div class="progressStat"><b id="poStrength">—</b><span>Strength change</span></div>
+      <div class="progressStat"><b id="poLoad">—</b><span>Top load change</span></div>
+      <div class="progressStat"><b id="poVolume">—</b><span>Session volume change</span></div>
+      <div class="progressStat"><b id="poRepPR">—</b><span>Rep PR at same load</span></div>
+    </div>
+    <div id="overloadSummary" class="callout" style="margin-top:10px">Need at least two clean sessions.</div>
+  </div>
+
+  <div class="two">
+    <div class="panel">
+      <div class="panelHead">
+        <div><h3>Strength trend</h3><div class="tiny muted">Best estimated 1RM from each clean session</div></div>
+        <span id="progressTrendBadge" class="pill">—</span>
+      </div>
+      <div id="exerciseTrendChart" class="trendChart"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panelHead"><h3>Progress summary</h3><span class="tiny muted">selected exercise only</span></div>
+      <div id="progressSummary" class="callout progressSummary">Choose an exercise to see its progress.</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panelHead">
+      <div><h3>Recent sessions</h3><div class="tiny muted">Sets, reps, volume and notes for this movement</div></div>
+      <span id="progressSessionCount" class="tiny muted">—</span>
+    </div>
+    <div id="exerciseHistory"></div>
+  </div>
+</section>
+
+
+
+
+<section id="nutrition" class="section">
+  <div class="panel">
+    <div class="panelHead">
+      <div>
+        <h3>Nutrition diary</h3>
+        <div class="tiny muted">Save foods once, then reuse them whenever you log a meal. Daily targets can come directly from Calories / TDEE and are kept across sessions.</div>
+      </div>
+      <div id="nutritionSyncState" class="nutritionStatus">Google Sheet nutrition: checking…</div>
+    </div>
+
+    <div class="progressFilters">
+      <div>
+        <label class="tiny muted">Diary date</label>
+        <input id="nutritionDate" type="date">
+      </div>
+      <div>
+        <label class="tiny muted">Daily targets</label>
+        <button class="btn soft" style="width:100%" onclick="toggleNutritionTargets()">Edit calories & macros</button>
+      </div>
+    </div>
+
+    <div id="nutritionTargetsForm" class="dailyForm">
+      <div class="dailyFormGrid">
+        <div><label class="tiny muted">Calories</label><input id="targetCalories" type="number" min="0"></div>
+        <div><label class="tiny muted">Protein (g)</label><input id="targetProtein" type="number" min="0"></div>
+        <div><label class="tiny muted">Carbs (g)</label><input id="targetCarbs" type="number" min="0"></div>
+        <div><label class="tiny muted">Fat (g)</label><input id="targetFat" type="number" min="0"></div>
+      </div>
+      <div class="dailyFormActions">
+        <button class="btn primary" onclick="saveNutritionTargets()">Save targets</button>
+        <button class="btn soft" onclick="toggleNutritionTargets(false)">Cancel</button>
+      </div>
+    </div>
+
+    <div class="nutritionHero">
+      <div class="macroCard"><b id="nCalories">0 / 2200</b><span>Calories</span><div class="macroTrack"><div id="nCaloriesBar" class="macroFill"></div></div></div>
+      <div class="macroCard"><b id="nProtein">0 / 180g</b><span>Protein</span><div class="macroTrack"><div id="nProteinBar" class="macroFill"></div></div></div>
+      <div class="macroCard"><b id="nCarbs">0 / 220g</b><span>Carbs</span><div class="macroTrack"><div id="nCarbsBar" class="macroFill"></div></div></div>
+      <div class="macroCard"><b id="nFat">0 / 70g</b><span>Fat</span><div class="macroTrack"><div id="nFatBar" class="macroFill"></div></div></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panelHead">
+      <div><h3>Quick add food</h3><div class="tiny muted">Choose a saved product, enter the amount, and ProgressX calculates the macros.</div></div>
+    </div>
+    <div class="foodQuickGrid">
+      <div class="foodSelect">
+        <label class="tiny muted">Saved product</label>
+        <select id="foodQuickProduct"></select>
+      </div>
+      <div>
+        <label class="tiny muted">Meal</label>
+        <select id="foodQuickMeal"><option>Breakfast</option><option>Lunch</option><option>Dinner</option><option>Snack</option></select>
+      </div>
+      <div>
+        <label id="foodQuickAmountLabel" class="tiny muted">Amount</label>
+        <input id="foodQuickAmount" type="number" min="0" step=".1" value="1">
+      </div>
+      <button class="btn primary" onclick="addFoodToDiary()">＋ Add</button>
+    </div>
+    <div id="foodQuickPreview" class="callout" style="margin-top:10px">Select a saved food to preview calories and macros.</div>
+  </div>
+
+  <div class="panel">
+    <div class="panelHead">
+      <div><h3>Today's food</h3><div class="tiny muted">Grouped by meal.</div></div>
+      <span id="foodEntryCount" class="pill">0 items</span>
+    </div>
+    <div id="foodDiaryList"></div>
+  </div>
+
+  <div class="panel">
+    <div class="panelHead">
+      <div><h3>Food library</h3><div class="tiny muted">Add a product once and reuse it forever.</div></div>
+      <div class="barcodeActions">
+        <button class="btn soft" onclick="openBarcodeScanner()">▣ Scan barcode</button>
+        <button class="btn primary" onclick="toggleFoodProductForm(true)">＋ New product</button>
+      </div>
+    </div>
+
+    <div id="foodProductForm" class="dailyForm">
+      <input id="foodEditId" type="hidden">
+      <div class="foodProductForm">
+        <div class="foodName"><label class="tiny muted">Product name</label><input id="foodName" placeholder="Example: Oats"></div>
+        <div><label class="tiny muted">Barcode</label><input id="foodBarcode" inputmode="numeric" placeholder="Optional"></div>
+        <div><label class="tiny muted">Serving qty</label><input id="foodServingQty" type="number" min=".01" step=".01" value="100"></div>
+        <div><label class="tiny muted">Unit</label><input id="foodServingUnit" placeholder="g / scoop / piece" value="g"></div>
+        <div><label class="tiny muted">Calories</label><input id="foodCalories" type="number" min="0" step=".1"></div>
+        <div><label class="tiny muted">Protein g</label><input id="foodProtein" type="number" min="0" step=".1"></div>
+        <div><label class="tiny muted">Carbs g</label><input id="foodCarbs" type="number" min="0" step=".1"></div>
+        <div><label class="tiny muted">Fat g</label><input id="foodFat" type="number" min="0" step=".1"></div>
+      </div>
+      <div class="dailyFormActions">
+        <button class="btn primary" onclick="saveFoodProduct()">Save product</button>
+        <button class="btn soft" onclick="toggleFoodProductForm(false)">Cancel</button>
+      </div>
+    </div>
+
+    <div class="panel" style="box-shadow:none;margin-bottom:12px">
+      <div class="panelHead">
+        <div>
+          <h3>Search food online</h3>
+          <div class="tiny muted">Smart Search checks common foods first, then packaged products online. Save any result to your own Food Library.</div>
+        </div>
+      </div>
+      <div class="internetFoodSearch">
+        <input id="onlineFoodQuery" placeholder="Example: boiled chicken, rice, eggs, Greek yogurt…">
+        <button class="btn primary" onclick="searchFoodOnline()">⌕ Search internet</button>
+      </div>
+      <div id="onlineFoodSearchState" class="onlineSearchInfo">Common foods are checked first; packaged products are searched online after you press Search.</div>
+      <div id="onlineFoodResults" class="onlineFoodResults"></div>
+    </div>
+
+    <label class="tiny muted">Your saved Food Library</label>
+    <input id="foodSearch" class="nutritionSearch" placeholder="Search your saved foods…">
+    <div id="foodLibrary" class="foodLibraryGrid"></div>
+  </div>
+</section>
+
+<section id="daily" class="section">
+  <div class="panel">
+    <div class="panelHead">
+      <div>
+        <h3>Daily supplements & hydration</h3>
+        <div class="tiny muted">Daily checklist with popup + sound reminders. Reminder settings are kept in this browser across ProgressX updates.</div>
+      </div>
+      <div class="dailyToolbar">
+        <button class="btn primary" onclick="toggleDailyForm(true)">＋ Add supplement</button>
+      </div>
+    </div>
+
+    <div id="notifyBanner" class="notifyBanner">
+      <div>
+        <div class="title">🔔 Reminders are ON by default</div>
+        <div id="notifyBannerText" class="sub">In-app alerts are enabled. Allow system notifications once for desktop/mobile pop-ups.</div>
+      </div>
+      <button id="notifyBannerBtn" class="btn soft" onclick="requestDailyNotifications()">Enable system alerts</button>
+    </div>
+
+    <div id="dailyAddForm" class="dailyForm">
+      <div class="panelHead" style="margin-bottom:10px">
+        <div>
+          <h3 style="margin:0">Add daily supplement</h3>
+          <div class="tiny muted">Create a reminder without leaving the page.</div>
+        </div>
+        <button class="icon" onclick="toggleDailyForm(false)">✕</button>
+      </div>
+      <div class="dailyFormGrid">
+        <div class="wide">
+          <label class="tiny muted">Supplement / reminder</label>
+          <input id="newDailyName" placeholder="Example: Omega-3">
+        </div>
+        <div>
+          <label class="tiny muted">Amount</label>
+          <input id="newDailyAmount" placeholder="Example: 1 capsule / 5 g">
+        </div>
+        <div>
+          <label class="tiny muted">Time</label>
+          <input id="newDailyTime" type="time" value="12:00">
+        </div>
+      </div>
+      <div class="reminderQuick">
+        <button class="btn soft" onclick="quickDailyPreset('Multivitamin','1 serving','09:00')">Multivitamin</button>
+        <button class="btn soft" onclick="quickDailyPreset('Creatine','5 g','14:00')">Creatine</button>
+        <button class="btn soft" onclick="quickDailyPreset('Whey Protein','1 serving','18:00')">Whey Protein</button>
+      </div>
+      <div class="dailyFormActions">
+        <button class="btn primary" onclick="saveNewDailyReminder()">Save reminder</button>
+        <button class="btn soft" onclick="toggleDailyForm(false)">Cancel</button>
+      </div>
+    </div>
+
+    <div class="statGrid">
+      <div class="stat"><b id="dailyDone">0</b><span>Done today</span></div>
+      <div class="stat"><b id="dailyTotal">0</b><span>Active reminders</span></div>
+      <div class="stat"><b id="waterNow">0 L</b><span>Water today</span></div>
+      <div class="stat"><b id="waterGoal">3 L</b><span>Water target</span></div>
+    </div>
+
+    <div class="panel" style="box-shadow:none;margin-top:12px">
+      <div class="panelHead">
+        <div><h3>💧 Water</h3><div class="tiny muted">Quick-add your drinks through the day.</div></div>
+        <div class="dailyActions">
+          <button class="btn soft" onclick="addWater(.25)">+250 mL</button>
+          <button class="btn soft" onclick="addWater(.5)">+500 mL</button>
+          <button class="btn soft" onclick="resetWater()">Reset</button>
+        </div>
+      </div>
+      <div class="waterBar"><div id="waterFill" class="waterFill"></div></div>
+      <div class="formGrid" style="margin-top:10px">
+        <div><label class="tiny muted">Daily target (L)</label><input id="waterTargetInput" type="number" min=".5" step=".25" onchange="setWaterTarget(this.value)"></div>
+        <div><label class="tiny muted">Current (L)</label><input id="waterCurrentInput" type="number" min="0" step=".25" onchange="setWaterCurrent(this.value)"></div>
+      </div>
+    </div>
+
+    <div class="panel" style="box-shadow:none;margin-top:12px">
+      <div class="panelHead">
+        <div><h3>🔔 Reminders</h3><div id="notificationState" class="tiny muted">Notifications not checked yet.</div><div id="reminderSheetState" class="tiny muted" style="margin-top:3px">Google Sheet reminders: checking…</div></div>
+        <div class="dailyActions">
+          <button class="btn soft" onclick="requestDailyNotifications()">Enable notifications</button>
+          <button class="btn soft" onclick="testDailyNotification()">Test notification</button>
+        </div>
+      </div>
+      <div id="dailyReminderGrid" class="reminderGrid"></div>
+    </div>
+
+    <div class="callout">
+      System notifications depend on browser support and permission. In this single-file build, scheduled alerts are checked while ProgressX is open. For reliable background alerts when the app is closed, host it over HTTPS as a PWA with a service worker.
+    </div>
+  </div>
+</section>
+
+<section id="calculators" class="section">
+<div class="panel"><div class="panelHead"><div><h3>Gym & Nutrition Calculators</h3><div class="tiny muted">Evidence-based equations where possible; results are estimates, not medical advice.</div></div></div>
+<div class="calcGrid">
+<div class="calcCard"><h3>🔥 Calories / TDEE</h3><p>Mifflin–St Jeor BMR × activity factor, then goal adjustment.</p><div class="formGrid"><select id="tSex"><option value="male">Male</option><option value="female">Female</option></select><input id="tAge" type="number" placeholder="Age"><input id="tWeight" type="number" step=".1" placeholder="Weight (kg)"><input id="tHeight" type="number" step=".1" placeholder="Height (cm)"><select id="tActivity"><option value="1.2">Sedentary ×1.20</option><option value="1.375">Light ×1.375</option><option value="1.55" selected>Moderate ×1.55</option><option value="1.725">Very active ×1.725</option><option value="1.9">Athlete ×1.90</option></select><select id="tGoal"><option value="-500">Fat loss −500 kcal</option><option value="-300" selected>Fat loss −300 kcal</option><option value="0">Maintain</option><option value="200">Lean gain +200</option><option value="300">Gain +300</option></select><button class="btn primary full" onclick="calcTDEE()">Calculate</button></div><div id="tResult" class="resultBox">Enter your details.</div>
+<div class="callout" style="margin-top:10px">
+  <b>Nutrition sync</b><br>
+  <span class="tiny muted">Uses the exact goal-adjusted Calories / TDEE result and the current Macro Targets settings. ProgressX saves the calculator profile, Nutrition targets and syncs them to Google Sheet.</span>
+  <div style="margin-top:9px;display:flex;gap:8px;flex-wrap:wrap">
+    <button class="btn primary" onclick="saveTdeeToNutrition()">Use TDEE for Nutrition</button>
+    <span id="tdeeNutritionState" class="tiny muted" style="align-self:center"></span>
+  </div>
+</div>
+<div class="formula">Formula: Mifflin–St Jeor. Activity multipliers are population-level estimates.</div></div>
+<div class="calcCard"><h3>🥩 Macro targets</h3><p>Set calories, body weight and protein/fat targets; carbs fill the remaining calories.</p><div class="formGrid"><input id="mCal" type="number" placeholder="Calories / day"><input id="mWeight" type="number" step=".1" placeholder="Weight (kg)"><input id="mProtein" type="number" step=".1" value="2" placeholder="Protein g/kg"><input id="mFat" type="number" step=".1" value="0.8" placeholder="Fat g/kg"><button class="btn primary full" onclick="calcMacros()">Calculate macros</button></div><div id="mResult" class="resultBox">Protein 1.6–2.2 g/kg is a common practical range for resistance training.</div></div>
+<div class="calcCard"><h3>🏋️ 1RM estimator</h3><p>Uses Epley, Brzycki and Lander, then shows their average. Best around 2–10 reps.</p><div class="formGrid"><input id="rWeight" type="number" step=".1" placeholder="Lifted weight"><input id="rReps" type="number" min="1" max="20" placeholder="Reps"><button class="btn primary full" onclick="calc1RM()">Estimate 1RM</button></div><div id="rResult" class="resultBox">Enter a challenging set.</div></div>
+<div class="calcCard"><h3>🧱 Plate calculator</h3><p>Calculates plates per side for a barbell. Available plates can be customized.</p><div class="formGrid"><input id="pTarget" type="number" step=".5" placeholder="Target total kg"><input id="pBar" type="number" step=".5" value="20" placeholder="Bar kg"><input class="full" id="pAvailable" value="25,20,15,10,5,2.5,1.25" placeholder="Available plates kg"><button class="btn primary full" onclick="calcPlates()">Build the bar</button></div><div id="pResult" class="resultBox">Uses matching pairs, one plate on each side.</div></div>
+<div class="calcCard"><h3>📊 Training volume</h3><p>Volume load = sets × reps × external load. Compare like-for-like exercises and setups.</p><div class="formGrid"><input id="vSets" type="number" placeholder="Sets"><input id="vReps" type="number" placeholder="Reps / set"><input id="vWeight" type="number" step=".1" placeholder="Weight"><button class="btn primary full" onclick="calcVolume()">Calculate volume</button></div><div id="vResult" class="resultBox">Enter a set scheme.</div></div>
+<div class="calcCard"><h3>📈 Progressive overload</h3><p>Simple double-progression helper: hit the top of your rep range across all working sets before adding load.</p><div class="formGrid"><input id="oWeight" type="number" step=".1" placeholder="Current weight"><input id="oSets" type="number" value="3" placeholder="Working sets"><input id="oMin" type="number" value="6" placeholder="Min reps"><input id="oMax" type="number" value="10" placeholder="Max reps"><input class="full" id="oActual" placeholder="Actual reps, e.g. 10,10,10"><input id="oStep" type="number" step=".1" value="2.5" placeholder="Increase %"><button class="btn primary" onclick="calcOverload()">Recommendation</button></div><div id="oResult" class="resultBox">Log all working-set reps for a suggestion.</div></div>
+<div class="calcCard"><h3>💧 Hydration target</h3><p>Starting estimate based on body mass, plus training-time fluid. Climate and sweat rate can change needs substantially.</p><div class="formGrid"><input id="hWeight" type="number" step=".1" placeholder="Weight kg"><input id="hMinutes" type="number" value="60" placeholder="Training minutes"><button class="btn primary full" onclick="calcHydration()">Estimate</button></div><div id="hResult" class="resultBox">A practical starting estimate, not a rigid prescription.</div></div>
+<div class="calcCard"><h3>⚡ Creatine guide</h3><p>Maintenance target from body weight; loading is optional.</p><div class="formGrid"><input id="cWeight" type="number" step=".1" placeholder="Weight kg"><button class="btn primary full" onclick="calcCreatine()">Calculate</button></div><div id="cResult" class="resultBox">Typical maintenance is about 3–5 g/day.</div></div>
+<div class="calcCard"><h3>📐 BMI</h3><p>Quick screening metric. It does not distinguish muscle from fat mass.</p><div class="formGrid"><input id="bWeight" type="number" step=".1" placeholder="Weight kg"><input id="bHeight" type="number" step=".1" placeholder="Height cm"><button class="btn primary full" onclick="calcBMI()">Calculate BMI</button></div><div id="bResult" class="resultBox">Use alongside waist, body composition and performance context.</div></div>
+<div class="calcCard"><h3>🧍 Navy body-fat estimate</h3><p>Circumference-based estimate. Measure with a tape under consistent conditions.</p><div class="formGrid"><select id="bfSex" onchange="toggleHip()"><option value="male">Male</option><option value="female">Female</option></select><input id="bfHeight" type="number" step=".1" placeholder="Height cm"><input id="bfNeck" type="number" step=".1" placeholder="Neck cm"><input id="bfWaist" type="number" step=".1" placeholder="Waist cm"><input id="bfHip" class="hide" type="number" step=".1" placeholder="Hip cm"><button class="btn primary full" onclick="calcBF()">Estimate body fat</button></div><div id="bfResult" class="resultBox">Treat the result as a trend estimate, not a lab measurement.</div></div>
+</div></div></section>
+
+<section id="settings" class="section">
+<div class="settingsGrid">
+  <div class="panel">
+    <div class="panelHead"><h3>Data & backup</h3></div>
+    <div class="actions">
+      <button class="btn soft" onclick="exportJSON()">Export JSON</button><button class="btn soft" onclick="exportFullBackup()">Full ProgressX backup</button>
+      <button class="btn soft" onclick="exportCSV()">Export CSV</button>
+      <label class="btn soft" for="importFile">Import JSON</label>
+      <input id="importFile" class="hide" type="file" accept="application/json">
+    </div>
+    <div class="callout" style="margin-top:12px">
+      Google Sheet is the main database in this build. JSON/CSV remain available as backups.
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panelHead">
+      <h3>Google Sheet Sync</h3>
+      <span id="syncBadge" class="pill warn">Not connected</span>
+    </div>
+    <p class="muted tiny">
+      Deploy the included <b>ProgressX-AppScript.gs</b> as a Google Apps Script Web App,
+      then paste its <b>/exec</b> URL below. Add, edit and delete actions will be written
+      directly to the <b>Workout Log</b> sheet.
+    </p>
+
+    <label class="tiny muted">Apps Script Web App URL</label>
+    <input id="appScriptUrl"
+      placeholder="https://script.google.com/macros/s/.../exec">
+
+    <div class="actions" style="margin-top:8px">
+      <button class="btn primary" onclick="syncFromSheet(false)">Refresh from Google Sheet</button>
+      <button class="btn soft" onclick="testConnection()">Test connection</button>
+      <button class="btn soft" onclick="openSheet()">Open Sheet</button>
+    </div>
+
+    <div id="syncInfo" class="callout" style="margin-top:12px">
+      Connected saves use instant local updates, then sync to Google Sheet in the background. Full refresh is only needed when you want to pull external Sheet changes.
+    </div>
+  </div>
+</div>
+</section>
+</div>
+
+<nav class="bottomNav"><button class="navbtn active" data-page="home" onclick="go('home')"><span>⌂</span><span class="label">Home</span></button><button class="navbtn" data-page="log" onclick="go('log')"><span>☷</span><span class="label">Log</span></button><button class="navbtn" data-page="analytics" onclick="go('analytics')"><span>⌁</span><span class="label">Progress</span></button><button class="navbtn" data-page="nutrition" onclick="go('nutrition')"><span>◉</span><span class="label">Food</span></button><button class="navbtn" data-page="daily" onclick="go('daily')"><span>◷</span><span class="label">Daily</span></button><button class="navbtn" data-page="calculators" onclick="go('calculators')"><span>∑</span><span class="label">Calculate</span></button><button class="navbtn" data-page="settings" onclick="go('settings')"><span>⚙</span><span class="label">Settings</span></button></nav>
+
+<div class="modalWrap" id="editorWrap" onclick="if(event.target===this)closeEditor()"><div class="modal"><div class="modalHead"><div><h3 id="editorTitle" style="margin:0">Log workout</h3><div class="tiny muted">Edit any old workout or add a new one. Exercise suggestions are filtered automatically by the selected training day; you can still type a new exercise.</div></div><button class="iconbtn" onclick="closeEditor()">✕</button></div><div class="formGrid" style="margin-top:14px"><select id="fDay"></select><input id="fWeek" type="number" min="1" placeholder="Week"><input id="fDate" type="date"><input id="fExercise" list="exerciseOptions" autocomplete="off" placeholder="Choose or type an exercise"><datalist id="exerciseOptions"></datalist><textarea id="fPerformance" class="full" rows="3" placeholder="Example: 25×8, 27.5×7, 30×6"></textarea><div id="lastPerfHint" class="tiny muted full" style="margin-top:-6px"></div><select id="fStatus"><option>Completed</option><option>Skipped</option><option>Uncertain</option><option>No data</option></select><input id="fNotes" placeholder="Notes: RIR, machine, grip, gym, pain-free etc."><div class="actions full"><button class="btn primary" onclick="saveEntry()">Save entry</button><button class="btn danger" id="deleteBtn" onclick="deleteEntry()">Delete</button></div></div></div></div>
+<script>
+const PROGRESSX_BUNDLED=[{"id":1,"day":"1 — ANTERIOR","exercise":"Flat Dumbbell Press (3×8)","week":1,"date":"2026-01-05","performance":"20*10, 22.5*8, 25*6","status":"Completed","notes":"DEMO — sample workout","raw":"20*10, 22.5*8, 25*6"},{"id":2,"day":"1 — ANTERIOR","exercise":"Flat Dumbbell Press (3×8)","week":2,"date":"2026-01-12","performance":"22.5*10, 25*8, 27.5*6","status":"Completed","notes":"DEMO — progressive overload","raw":"22.5*10, 25*8, 27.5*6"},{"id":3,"day":"1 — ANTERIOR","exercise":"Incline Dumbbell Press (3×10)","week":1,"date":"2026-01-05","performance":"17.5*10, 20*8, 20*7","status":"Completed","notes":"DEMO","raw":"17.5*10, 20*8, 20*7"},{"id":4,"day":"2 — POSTERIOR","exercise":"Lat Pulldown (3×10)","week":1,"date":"2026-01-07","performance":"45*10, 50*8, 50*7","status":"Completed","notes":"DEMO","raw":"45*10, 50*8, 50*7"},{"id":5,"day":"2 — POSTERIOR","exercise":"Lat Pulldown (3×10)","week":2,"date":"2026-01-14","performance":"50*10, 52.5*8, 55*6","status":"Completed","notes":"DEMO","raw":"50*10, 52.5*8, 55*6"},{"id":6,"day":"3 — ANTERIOR 2","exercise":"Leg Press (3×10)","week":1,"date":"2026-01-09","performance":"100*12, 120*10, 130*8","status":"Completed","notes":"DEMO","raw":"100*12, 120*10, 130*8"},{"id":7,"day":"3 — ANTERIOR 2","exercise":"Leg Press (3×10)","week":2,"date":"2026-01-16","performance":"110*12, 130*10, 140*8","status":"Completed","notes":"DEMO","raw":"110*12, 130*10, 140*8"},{"id":8,"day":"4 — POSTERIOR 2","exercise":"Romanian Deadlift (3×8)","week":1,"date":"2026-01-11","performance":"50*10, 60*8, 65*6","status":"Completed","notes":"DEMO","raw":"50*10, 60*8, 65*6"},{"id":9,"day":"4 — POSTERIOR 2","exercise":"Romanian Deadlift (3×8)","week":2,"date":"2026-01-18","performance":"55*10, 62.5*8, 67.5*6","status":"Completed","notes":"DEMO","raw":"55*10, 62.5*8, 67.5*6"}];
+let bundled=[],data=[],activeDay='All',editingId=null,currentPage='home';const KEY='progressx-data-v19', SCRIPT_URL_KEY='progressx-appscript-url-v19', SHEET_URL='https://docs.google.com/spreadsheets/d/YOUR_SHEET_ID/edit', DEFAULT_APPS_SCRIPT_URL='', $=id=>document.getElementById(id);const clone=x=>JSON.parse(JSON.stringify(x));
+async function init(){
+  bundled=clone(PROGRESSX_BUNDLED);
+  const stored=localStorage.getItem(KEY);
+  data=stored?JSON.parse(stored):clone(bundled);
+  $('appScriptUrl').value=localStorage.getItem(SCRIPT_URL_KEY)||DEFAULT_APPS_SCRIPT_URL;
+  if(localStorage.getItem('theme'))document.documentElement.dataset.theme=localStorage.getItem('theme');
+  wire();
+  updateSyncUI();
+  rebuild();
+  startDailyReminderClock();
+  if($('appScriptUrl').value.trim()){
+    setTimeout(()=>syncFromSheet(true),500);
+    setTimeout(()=>syncRemindersFromSheet(),900);setTimeout(()=>syncNutritionFromSheet(),1300);
+  }
+}
+function wire(){
+  const savedTdeeProfile=loadTdeeProfile();
+  if(savedTdeeProfile&&savedTdeeProfile.targets){
+    nutritionTargets={
+      calories:Number(savedTdeeProfile.targets.calories)||nutritionTargets.calories,
+      protein:Number(savedTdeeProfile.targets.protein)||nutritionTargets.protein,
+      carbs:Number(savedTdeeProfile.targets.carbs)||nutritionTargets.carbs,
+      fat:Number(savedTdeeProfile.targets.fat)||nutritionTargets.fat
+    };
+    localStorage.setItem(NUTRITION_TARGETS_KEY,JSON.stringify(nutritionTargets));
+  }
+  restoreTdeeProfile();
+if($('nutritionDate')){$('nutritionDate').value=localDateKey();$('nutritionDate').addEventListener('change',()=>syncNutritionFromSheet())}if($('foodSearch'))$('foodSearch').addEventListener('input',renderFoodLibrary);if($('onlineFoodQuery'))$('onlineFoodQuery').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();searchFoodOnline()}});if($('foodQuickProduct'))$('foodQuickProduct').addEventListener('change',()=>{$('foodQuickAmount').dataset.changed='';updateFoodQuickPreview()});if($('foodQuickAmount'))$('foodQuickAmount').addEventListener('input',()=>{$('foodQuickAmount').dataset.changed='1';updateFoodQuickPreview()});['search','weekFilter','statusFilter'].forEach(id=>$(id).addEventListener('input',renderLog));$('exerciseSelect').addEventListener('change',renderExercise);$('progressDaySelect').addEventListener('change',()=>{buildProgressFilters();renderExercise()});$('importFile').addEventListener('change',importJSON);$('fDay').addEventListener('change',()=>{buildExerciseOptions($('fDay').value);if(editingId===null){$('fExercise').value='';$('fPerformance').value='';$('lastPerfHint').textContent=''}});$('fExercise').addEventListener('change',prefillLastPerformance);$('fExercise').addEventListener('input',()=>{const name=$('fExercise').value.trim();if(exercisesForDay($('fDay').value).some(x=>x.toLowerCase()===name.toLowerCase()))prefillLastPerformance()});}
+function go(p){currentPage=p;document.querySelectorAll('.section').forEach(s=>s.classList.toggle('active',s.id===p));document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.page===p));if(p==='analytics')renderAnalytics();if(p==='daily')renderDaily();if(p==='nutrition'){renderNutrition();syncNutritionFromSheet()}scrollTo(0,0)}
+function toggleTheme(){const t=document.documentElement.dataset.theme==='dark'?'light':'dark';document.documentElement.dataset.theme=t;localStorage.setItem('theme',t)}
+function esc(s){return String(s??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
+function latestWeek(){return Math.max(1,...data.map(x=>Number(x.week)||0))}
+function days(){return [...new Set(data.map(x=>x.day).filter(Boolean))]}
+function closedTrainingDaysForWeek(week){
+  const closed=new Set(
+    data.filter(x=>Number(x.week)===Number(week)&&['Completed','Skipped'].includes(String(x.status||'')))
+        .map(x=>x.day).filter(Boolean)
+  );
+  return closed;
+}
+function isWeekComplete(week){
+  const ds=days();
+  if(!ds.length)return false;
+  const closed=closedTrainingDaysForWeek(week);
+  return ds.every(d=>closed.has(d));
+}
+function manualActiveWeek(){
+  return Number(localStorage.getItem('progressx-manual-active-week-v20'))||0;
+}
+function activeWeek(){
+  const maxW=latestWeek();
+  const autoW=isWeekComplete(maxW)?maxW+1:maxW;
+  return Math.max(autoW,manualActiveWeek()||0);
+}
+function weekProgress(){
+  const w=activeWeek(), ds=days();
+  const closed=closedTrainingDaysForWeek(w);
+  return {week:w,done:ds.filter(d=>closed.has(d)).length,total:ds.length,days:ds,closed};
+}
+function startNextWeek(){
+  const next=Math.max(activeWeek()+1,latestWeek()+1);
+  localStorage.setItem('progressx-manual-active-week-v20',String(next));
+  rebuild();
+}
+function rebuild(){buildFilters();renderHome();renderLog();renderAnalytics();buildEditorDays();buildExerciseOptions();renderNutritionHome();}
+function save(changedRecord=null){localStorage.setItem(KEY,JSON.stringify(data));rebuild()}
+function buildFilters(){const ds=['All',...days()];$('dayTabs').innerHTML=ds.map(d=>`<button class="chip ${d===activeDay?'active':''}" onclick='activeDay=${JSON.stringify(d)};buildFilters();renderLog()'>${esc(d)}</button>`).join('');const ws=[...new Set(data.map(x=>x.week).filter(Boolean))].sort((a,b)=>b-a);$('weekFilter').innerHTML='<option value="">All weeks</option>'+ws.map(w=>`<option value="${w}">W${w}</option>`).join('');buildProgressFilters()}
+function buildEditorDays(){const ds=days();$('fDay').innerHTML=(ds.length?ds:['1 — DAY 1','2 — DAY 2','3 — DAY 3','4 — DAY 4']).map(d=>`<option>${esc(d)}</option>`).join('')}
+function exercisesForDay(day){return [...new Set(data.filter(x=>!day||String(x.day)===String(day)).map(x=>String(x.exercise||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b))}
+function buildExerciseOptions(day=$('fDay')?.value){const el=$('exerciseOptions');if(!el)return;const ex=exercisesForDay(day);el.innerHTML=ex.map(x=>`<option value="${esc(x)}"></option>`).join('');const input=$('fExercise');if(input){const shortDay=String(day||'').replace(/^\d+\s*[—-]\s*/, '');input.placeholder=ex.length?`Choose a ${shortDay||'day'} exercise or type a new one`:'No saved exercises for this day — type a new one';input.title=`${ex.length} saved exercise${ex.length===1?'':'s'} for ${day||'this training day'}. You can always type a new exercise.`}}
+function latestExerciseEntry(day,exercise){const d=String(day||'').trim().toLowerCase(),e=String(exercise||'').trim().toLowerCase();return data.filter(x=>String(x.day||'').trim().toLowerCase()===d&&String(x.exercise||'').trim().toLowerCase()===e&&String(x.performance||'').trim()).sort((a,b)=>(Number(b.week)||0)-(Number(a.week)||0)||String(b.date||'').localeCompare(String(a.date||''))||(Number(b.id)||0)-(Number(a.id)||0))[0]||null}
+function prefillLastPerformance(){if(editingId!==null)return;const day=$('fDay').value,exercise=$('fExercise').value.trim();const last=latestExerciseEntry(day,exercise);if(last){$('fPerformance').value=last.performance||'';$('lastPerfHint').innerHTML=`Last logged: <b>W${esc(last.week??'—')}</b>${last.date?` · ${esc(last.date)}`:''} — prefilled for faster logging.`}else{$('lastPerfHint').textContent=exercise?'No previous performance found for this exercise in this training day.':''}}
+function statusClass(s){return s==='Completed'?'ok':s==='Skipped'?'skip':'warn'}
+
+function parsePerformanceSets(raw){
+  const original=String(raw||'').trim();
+  if(!original)return [];
+
+  // ProgressX set notation:
+  //   20*3               = one set: 20 kg × 3 reps
+  //   25*7,27.5*6,30*6  = three different sets
+  //   25*7*2             = two identical sets: 25 kg × 7 reps
+  // Anything after a comma is treated as another set.
+  // Old notes/annotations are never discarded; if parsing is uncertain,
+  // ProgressX shows that piece as raw text rather than guessing.
+  const chunks=original
+    .replace(/،/g,',')
+    .split(',')
+    .map(s=>s.trim())
+    .filter(Boolean);
+
+  const sets=[];
+  for(const chunk of chunks){
+    const clean=chunk.replace(/[×xX]/g,'*').trim();
+
+    // Strict clean format: weight * reps * optional repeated-set count
+    let m=clean.match(/^(-?\d+(?:\.\d+)?)\s*\*\s*(\d+(?:\.\d+)?)\s*(?:\*\s*(\d+))?\s*$/);
+    if(m){
+      const repeat=Math.max(1,Math.min(20,Number(m[3]||1)));
+      for(let i=0;i<repeat;i++)sets.push({weight:m[1],reps:m[2]});
+      continue;
+    }
+
+    // Allow a trailing date / note while still extracting the first weight × reps.
+    // Example: "30*6 5/10" or "35*3 Warm 40*6" remains raw if ambiguous.
+    m=clean.match(/^(-?\d+(?:\.\d+)?)\s*\*\s*(\d+(?:\.\d+)?)(?:\s+(.+))?$/);
+    if(m && !m[3]){
+      sets.push({weight:m[1],reps:m[2]});
+      continue;
+    }
+
+    sets.push({raw:chunk});
+  }
+  return sets;
+}
+function renderPerformanceSets(raw){
+  const sets=parsePerformanceSets(raw);
+  if(!sets.length)return '<div class="setRow"><span class="setNo">—</span><span class="setRaw">No performance</span></div>';
+
+  const rows=sets.map((s,i)=>{
+    if(s.raw){
+      return `<div class="setRow">
+        <span class="setNo">SET ${i+1}</span>
+        <span class="setRaw">${esc(s.raw)}</span>
+      </div>`;
+    }
+    return `<div class="setRow">
+      <span class="setNo">SET ${i+1}</span>
+      <span class="setWeight">${esc(s.weight)} kg</span>
+      <span class="setX">×</span>
+      <span class="setReps">${esc(s.reps)} reps</span>
+    </div>`;
+  }).join('');
+
+  return `<div class="setTable">${rows}</div><div class="rawPerf">Raw: ${esc(raw)}</div>`;
+}
+
+function card(x){
+  const id=encodeURIComponent(String(x.id));
+  return `<div class="logCard" onclick="openEditor(decodeURIComponent('${id}'))">
+    <div class="logIdentity">
+      <div class="logTitle">${esc(x.exercise)}</div>
+      <div class="meta">
+        <span class="pill">W${x.week??'—'}</span>
+        <span class="pill">${esc(x.day||'')}</span>
+        ${x.date?`<span class="pill">${esc(x.date)}</span>`:''}
+      </div>
+    </div>
+
+    <div class="performance">${renderPerformanceSets(x.performance||'')}</div>
+
+    <div class="logActions">
+      <span class="pill ${statusClass(x.status)}">${esc(x.status)}</span>
+      <button class="btn soft" style="padding:7px 10px"
+        onclick="event.stopPropagation();openEditor(decodeURIComponent('${id}'))">Edit</button>
+    </div>
+
+    ${x.notes?`<div class="note">📝 ${esc(x.notes)}</div>`:''}
+  </div>`;
+}
+function renderHome(){
+  const aw=activeWeek(), prog=weekProgress();
+  $('heroWeek').textContent='W'+aw;
+  $('kWeek').textContent='W'+aw;
+  $('kEntries').textContent=data.length;
+  $('kExercises').textContent=new Set(data.map(x=>x.exercise)).size;
+  $('kNotes').textContent=data.filter(x=>x.notes).length;
+
+  const rec=[...data].sort((a,b)=>(b.week||0)-(a.week||0)||String(b.date).localeCompare(String(a.date))).slice(0,6);
+  $('recent').innerHTML=rec.map(card).join('')||'<div class="empty">No workouts yet.</div>';
+
+  $('quickDays').innerHTML=days().slice(0,4).map(d=>{
+    const done=prog.closed.has(d);
+    return `<button class="dayBtn" onclick='quickAdd(${JSON.stringify(d)})'>${done?'✓ ':''}${esc(d.replace(/^\d+\s*[—-]\s*/,''))}</button>`
+  }).join('');
+
+  if($('weekProgressLabel'))$('weekProgressLabel').textContent=`W${aw} • ${prog.done}/${prog.total||0} days`;
+  if($('weekProgressText')){
+    $('weekProgressText').textContent=prog.total
+      ? (prog.done>=prog.total
+          ? `Week ${aw} is complete. ProgressX will move new entries to W${aw+1}.`
+          : `Week ${aw}: ${prog.done} of ${prog.total} training days completed/skipped.`)
+      : 'Add training days to begin weekly progress tracking.';
+  }
+  renderWeekChart('weekChart')
+}
+function weeklyCounts(){const m={};data.forEach(x=>{if(x.week)m[x.week]=(m[x.week]||0)+1});return Object.entries(m).map(([w,n])=>({w:+w,n})).sort((a,b)=>a.w-b.w)}
+function renderWeekChart(id){const a=weeklyCounts().slice(-20), max=Math.max(1,...a.map(x=>x.n));$(id).innerHTML=a.map(x=>`<div class="bar" style="height:${Math.max(8,x.n/max*100)}%" data-tip="W${x.w}: ${x.n}"></div>`).join('')||'<div class="empty">No weekly data</div>'}
+function filtered(){const q=$('search').value.toLowerCase(),w=$('weekFilter').value,st=$('statusFilter').value;return data.filter(x=>(activeDay==='All'||x.day===activeDay)&&(!w||String(x.week)===w)&&(!st||x.status===st)&&(!q||`${x.exercise} ${x.performance} ${x.notes||''}`.toLowerCase().includes(q))).sort((a,b)=>(b.week||0)-(a.week||0)||String(b.date).localeCompare(String(a.date)))}
+function renderLog(){const f=filtered();$('resultCount').textContent=`${f.length} records`;$('logList').innerHTML=f.map(card).join('')||'<div class="empty">Nothing matches these filters.</div>'}
+function clearFilters(){activeDay='All';$('search').value='';$('weekFilter').value='';$('statusFilter').value='';buildFilters();renderLog()}
+
+function buildProgressFilters(){
+  const daySel=$('progressDaySelect'),exSel=$('exerciseSelect');
+  if(!daySel||!exSel)return;
+  const previousDay=daySel.value,previousExercise=exSel.value;
+  const d=days();
+  daySel.innerHTML='<option value="">All training days</option>'+d.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join('');
+  if(d.includes(previousDay))daySel.value=previousDay;
+  const selectedDay=daySel.value;
+  const ex=[...new Set(data.filter(x=>!selectedDay||x.day===selectedDay).map(x=>x.exercise).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
+  exSel.innerHTML=ex.map(x=>`<option value="${esc(x)}">${esc(x)}</option>`).join('');
+  if(ex.includes(previousExercise))exSel.value=previousExercise;
+  else if(ex.length)exSel.value=ex[0];
+}
+function parsedNumericSets(raw){
+  return parsePerformanceSets(raw).filter(s=>!s.raw&&Number.isFinite(Number(s.weight))&&Number.isFinite(Number(s.reps))).map(s=>({weight:Number(s.weight),reps:Number(s.reps)}))
+}
+function progressE1RM(w,r){return w>0&&r>0?w*(1+r/30):0}
+function progressMetrics(row){
+  const sets=parsedNumericSets(row.performance||'');
+  if(!sets.length)return {sets:[],maxWeight:0,bestE1RM:0,volume:0,top:null};
+  const maxWeight=Math.max(...sets.map(s=>s.weight));
+  const bestE1RM=Math.max(...sets.map(s=>progressE1RM(s.weight,s.reps)));
+  const volume=sets.reduce((a,s)=>a+s.weight*s.reps,0);
+  const top=[...sets].sort((a,b)=>progressE1RM(b.weight,b.reps)-progressE1RM(a.weight,a.reps))[0];
+  return {sets,maxWeight,bestE1RM,volume,top}
+}
+function progressRows(){
+  const ex=$('exerciseSelect')?.value||'',day=$('progressDaySelect')?.value||'';
+  return data.filter(x=>x.exercise===ex&&(!day||x.day===day)).sort((a,b)=>(Number(a.week)||0)-(Number(b.week)||0)||String(a.date||'').localeCompare(String(b.date||''))||((Number(a.id)||0)-(Number(b.id)||0)))
+}
+function pnum(n,d=1){return Number.isFinite(Number(n))?Number(n).toFixed(d).replace(/\.0$/,''):'—'}
+function renderAnalytics(){buildProgressFilters();renderExercise()}
+
+function pctChange(now,prev){
+  if(!(Number.isFinite(now)&&Number.isFinite(prev))||prev===0)return null;
+  return ((now-prev)/prev)*100;
+}
+function fmtPct(v){
+  if(v===null||!Number.isFinite(v))return '—';
+  const s=v>0?'+':'';
+  return `${s}${pnum(v)}%`;
+}
+function bestRepsAtLoad(metrics,load){
+  const same=metrics.sets.filter(s=>Math.abs(s.weight-load)<0.001);
+  return same.length?Math.max(...same.map(s=>s.reps)):null;
+}
+function analyzeProgressiveOverload(usable){
+  const badge=$('overloadBadge'),summary=$('overloadSummary');
+  if(!badge||!summary)return;
+
+  if(usable.length<2){
+    $('poStrength').textContent='—';
+    $('poLoad').textContent='—';
+    $('poVolume').textContent='—';
+    $('poRepPR').textContent='—';
+    badge.textContent='Need 2 sessions';
+    badge.className='pill';
+    summary.textContent='Log at least two clean sessions for this exercise to calculate progressive overload.';
+    return;
+  }
+
+  const prev=usable[usable.length-2];
+  const cur=usable[usable.length-1];
+
+  const strengthPct=pctChange(cur.m.bestE1RM,prev.m.bestE1RM);
+  const loadPct=pctChange(cur.m.maxWeight,prev.m.maxWeight);
+  const volumePct=pctChange(cur.m.volume,prev.m.volume);
+
+  // Same-load rep PR: compare reps at the latest top load only if that load existed before.
+  const currentLoad=cur.m.top?.weight||cur.m.maxWeight;
+  const currentReps=bestRepsAtLoad(cur.m,currentLoad);
+  const previousReps=bestRepsAtLoad(prev.m,currentLoad);
+  const repGain=(currentReps!==null&&previousReps!==null)?currentReps-previousReps:null;
+
+  $('poStrength').textContent=fmtPct(strengthPct);
+  $('poLoad').textContent=fmtPct(loadPct);
+  $('poVolume').textContent=fmtPct(volumePct);
+  $('poRepPR').textContent=repGain===null?'—':repGain>0?`+${pnum(repGain,0)} rep${repGain===1?'':'s'}`:repGain===0?'Same':`${pnum(repGain,0)} reps`;
+
+  // Score is intentionally strength-led so extra sets do not falsely dominate the result.
+  let label='Stable',cls='pill',score=0;
+  if(strengthPct!==null){
+    score += Math.max(-5,Math.min(5,strengthPct))*1.0;
+  }
+  if(loadPct!==null){
+    score += Math.max(-4,Math.min(4,loadPct))*0.35;
+  }
+  if(repGain!==null){
+    score += Math.max(-3,Math.min(3,repGain))*0.55;
+  }
+  if(volumePct!==null){
+    score += Math.max(-20,Math.min(20,volumePct))*0.04;
+  }
+
+  if(score>=3.0){label='Strong progress';cls='pill ok'}
+  else if(score>=0.7){label='Progress';cls='pill ok'}
+  else if(score<=-2.0){label='Regression';cls='pill skip'}
+  else if(score<0){label='Slight decline';cls='pill warn'}
+
+  badge.textContent=label;
+  badge.className=cls;
+
+  const parts=[];
+  if(strengthPct!==null){
+    if(strengthPct>0.5)parts.push(`Estimated strength improved by <strong>${fmtPct(strengthPct)}</strong>.`);
+    else if(strengthPct<-0.5)parts.push(`Estimated strength decreased by <strong>${fmtPct(strengthPct)}</strong>.`);
+    else parts.push(`Estimated strength is <strong>essentially stable</strong>.`);
+  }
+  if(repGain!==null&&repGain>0){
+    parts.push(`You achieved a <strong>rep PR</strong> at ${pnum(currentLoad)} kg: ${pnum(previousReps,0)} → ${pnum(currentReps,0)} reps.`);
+  }
+  if(loadPct!==null&&loadPct>0.1){
+    parts.push(`Top load increased from <strong>${pnum(prev.m.maxWeight)} kg</strong> to <strong>${pnum(cur.m.maxWeight)} kg</strong>.`);
+  }
+  if(volumePct!==null){
+    parts.push(`Session volume changed by <strong>${fmtPct(volumePct)}</strong>, used only as a supporting metric.`);
+  }
+
+  // Simple next-session guidance based on the latest top set.
+  if(cur.m.top){
+    if(label==='Strong progress'||label==='Progress'){
+      parts.push(`Next target: keep ${pnum(cur.m.top.weight)} kg and beat ${pnum(cur.m.top.reps,0)} reps, or add a small load increase once you reach the top of your rep range with good form.`);
+    }else if(label==='Stable'){
+      parts.push(`Next target: try to add <strong>1 rep</strong> at the same load before increasing weight.`);
+    }else{
+      parts.push(`Next target: repeat the load and focus on matching the previous performance before adding weight.`);
+    }
+  }
+
+  summary.innerHTML=parts.join(' ');
+}
+
+function renderExercise(){
+  const ex=$('exerciseSelect')?.value;if(!ex)return;
+  const rows=progressRows();
+  const usable=rows.map(row=>({row,m:progressMetrics(row)})).filter(x=>x.m.sets.length);
+  $('pSessions').textContent=rows.length;
+  $('progressSessionCount').textContent=`${rows.length} session${rows.length===1?'':'s'}`;
+
+  if(!usable.length){
+    $('pLatestTop').textContent='—';$('pBestWeight').textContent='—';$('pBestE1RM').textContent='—';
+    analyzeProgressiveOverload([]);
+    $('exerciseTrendChart').innerHTML='<div class="progressEmpty">No clean numeric sets available yet.</div>';
+    $('progressSummary').innerHTML='This exercise has logs, but ProgressX could not safely parse them into clean <strong>weight × reps</strong> sets.';
+    $('exerciseHistory').innerHTML=rows.slice().reverse().slice(0,10).map(progressSessionCard).join('')||'<div class="progressEmpty">No sessions yet.</div>';
+    return;
+  }
+
+  analyzeProgressiveOverload(usable);
+  const latest=usable[usable.length-1],bestWeight=Math.max(...usable.map(x=>x.m.maxWeight)),bestE1RM=Math.max(...usable.map(x=>x.m.bestE1RM));
+  $('pLatestTop').textContent=latest.m.top?`${pnum(latest.m.top.weight)} × ${pnum(latest.m.top.reps,0)}`:'—';
+  $('pBestWeight').textContent=`${pnum(bestWeight)} kg`;
+  $('pBestE1RM').textContent=`${pnum(bestE1RM)} kg`;
+
+  const items=usable.slice(-16),vals=items.map(x=>x.m.bestE1RM),min=Math.min(...vals),max=Math.max(...vals),span=Math.max(1,max-min);
+  let runningPR=0;
+  $('exerciseTrendChart').innerHTML=items.map(x=>{const v=x.m.bestE1RM,isPR=v>runningPR+.01;runningPR=Math.max(runningPR,v);const h=18+((v-min)/span)*82;return `<div class="trendCol" title="W${x.row.week}: e1RM ${pnum(v)} kg"><div class="trendBar ${isPR?'pr':''}" style="height:${h}%"></div><div class="trendLabel">W${esc(x.row.week)}</div></div>`}).join('');
+
+  const first=items[0].m.bestE1RM,last=items[items.length-1].m.bestE1RM,pct=first>0?((last-first)/first)*100:0;
+  const badge=$('progressTrendBadge');
+  if(Math.abs(pct)<1){badge.textContent='Stable';badge.className='pill'}
+  else if(pct>0){badge.textContent=`↑ ${pnum(pct)}%`;badge.className='pill ok'}
+  else{badge.textContent=`↓ ${pnum(Math.abs(pct))}%`;badge.className='pill skip'}
+
+  const prev=usable.length>1?usable[usable.length-2]:null,recent=prev?latest.m.bestE1RM-prev.m.bestE1RM:0;
+  const longText=usable.length>1?(pct>1?`Estimated strength is <strong>${pnum(pct)}% higher</strong> than your first clean session.`:pct<-1?`Estimated strength is <strong>${pnum(Math.abs(pct))}% lower</strong> than your first clean session.`:`Estimated strength is <strong>roughly stable</strong> across the logged period.`):'Not enough clean sessions for a long-term trend yet.';
+  const recentText=prev?(recent>.5?`Latest session improved about <strong>${pnum(recent)} kg e1RM</strong> versus the previous one.`:recent<-.5?`Latest session is about <strong>${pnum(Math.abs(recent))} kg e1RM lower</strong> than the previous one.`:`Latest session is <strong>very close to the previous one</strong>.`):'No previous clean session to compare.';
+  $('progressSummary').innerHTML=`${longText}<br>${recentText}<br><br>Best load: <strong>${pnum(bestWeight)} kg</strong><br>Best estimated 1RM: <strong>${pnum(bestE1RM)} kg</strong><br>Latest parsed volume: <strong>${Math.round(latest.m.volume).toLocaleString()} kg</strong>`;
+
+  $('exerciseHistory').innerHTML=rows.slice().reverse().slice(0,10).map(progressSessionCard).join('');
+}
+function progressSessionCard(r){
+  const m=progressMetrics(r);
+  const badges=m.sets.length?`<div class="progressBadges"><span class="pill">Top ${pnum(m.maxWeight)} kg</span><span class="pill">e1RM ${pnum(m.bestE1RM)} kg</span><span class="pill">Vol ${Math.round(m.volume).toLocaleString()} kg</span></div>`:`<div class="progressBadges"><span class="pill warn">Raw log</span></div>`;
+  return `<div class="progressSession"><div class="progressSessionHead"><div><div class="progressSessionTitle">W${esc(r.week)} ${r.date?`• ${esc(r.date)}`:''}</div><div class="progressSessionMeta">${esc(r.day||'')} • ${esc(r.status||'')}</div></div>${badges}</div><div>${renderPerformanceSets(r.performance||'')}</div>${r.notes?`<div class="note">📝 ${esc(r.notes)}</div>`:''}</div>`
+}
+
+
+function quickAdd(day){openEditor();$('fDay').value=day;buildExerciseOptions(day);$('fExercise').value='';$('fPerformance').value='';$('lastPerfHint').textContent=''}
+function openEditor(id=null){editingId=id;const x=id!==null?data.find(r=>String(r.id)===String(id)):null;$('editorTitle').textContent=x?'Edit workout':'Log workout';$('deleteBtn').classList.toggle('hide',!x);$('fWeek').value=x?.week||activeWeek();$('fDate').value=x?.date||new Date().toISOString().slice(0,10);$('fDay').value=x?.day||days()[0]||'';buildExerciseOptions($('fDay').value);$('fExercise').value=x?.exercise||'';$('fPerformance').value=x?.performance||'';$('fStatus').value=x?.status||'Completed';$('fNotes').value=x?.notes||'';$('lastPerfHint').textContent=x?'Editing saved performance.':'';$('editorWrap').classList.add('open');document.body.classList.add('workout-editor-open')}
+function closeEditor(){$('editorWrap').classList.remove('open');document.body.classList.remove('workout-editor-open')}
+async function saveEntry(){
+  const existingIndex=editingId!==null?data.findIndex(r=>String(r.id)===String(editingId)):-1;
+  const existing=existingIndex>=0?clone(data[existingIndex]):null;
+
+  const tempId=editingId!==null?(existing?.id||editingId):('temp_'+Date.now());
+  const obj={
+    id:tempId,
+    day:$('fDay').value,
+    week:Number($('fWeek').value)||null,
+    date:$('fDate').value,
+    exercise:$('fExercise').value.trim(),
+    performance:$('fPerformance').value.trim(),
+    status:$('fStatus').value,
+    notes:$('fNotes').value.trim()
+  };
+
+  if(!obj.exercise)return alert('Exercise is required.');
+  if(!$('appScriptUrl').value.trim())return alert('Add your Apps Script Web App URL in Data / Settings first.');
+
+  // Optimistic UI: update immediately, then sync in the background.
+  if(existingIndex>=0)data[existingIndex]=clone(obj);
+  else data.push(clone(obj));
+
+  localStorage.setItem(KEY,JSON.stringify(data));
+  closeEditor();
+  rebuild();
+  updateSyncUI(null,'Saving to Google Sheet…');
+
+  try{
+    const payload={...obj,id:editingId!==null?(existing?.id||editingId):''};
+    const res=await apiCall('upsert',payload);
+    if(!res.ok)throw new Error(res.error||'Save failed');
+
+    // Replace temporary ID with the real Sheet ID returned by Apps Script.
+    if(editingId===null){
+      const i=data.findIndex(r=>String(r.id)===String(tempId));
+      if(i>=0)data[i].id=res.id;
+      localStorage.setItem(KEY,JSON.stringify(data));
+      rebuild();
+    }
+
+    rebuild();updateSyncUI(true,`Saved to Google Sheet at ${new Date().toLocaleTimeString()}.`);
+  }catch(e){
+    // Roll back the optimistic local change if Google save fails.
+    if(existingIndex>=0 && existing){
+      const i=data.findIndex(r=>String(r.id)===String(tempId)||String(r.id)===String(existing.id));
+      if(i>=0)data[i]=existing;
+    }else{
+      data=data.filter(r=>String(r.id)!==String(tempId));
+    }
+    localStorage.setItem(KEY,JSON.stringify(data));
+    rebuild();
+    updateSyncUI(false,e.message);
+    alert('Could not save to Google Sheet: '+e.message);
+  }
+}
+async function deleteEntry(){
+  if(editingId===null)return;
+  if(!confirm('Delete this entry from Google Sheet?'))return;
+  if(!$('appScriptUrl').value.trim())return alert('Add your Apps Script Web App URL in Data / Settings first.');
+
+  const idx=data.findIndex(r=>String(r.id)===String(editingId));
+  const backup=idx>=0?clone(data[idx]):null;
+
+  // Optimistic UI: remove immediately.
+  if(idx>=0)data.splice(idx,1);
+  localStorage.setItem(KEY,JSON.stringify(data));
+  closeEditor();
+  rebuild();
+  updateSyncUI(null,'Deleting from Google Sheet…');
+
+  try{
+    const res=await apiCall('delete',{id:editingId});
+    if(!res.ok)throw new Error(res.error||'Delete failed');
+    updateSyncUI(true,`Deleted from Google Sheet at ${new Date().toLocaleTimeString()}.`);
+  }catch(e){
+    // Restore deleted row if remote deletion fails.
+    if(backup){
+      data.push(backup);
+      localStorage.setItem(KEY,JSON.stringify(data));
+      rebuild();
+    }
+    updateSyncUI(false,e.message);
+    alert('Could not delete from Google Sheet: '+e.message);
+  }
+}
+function download(name,text,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([text],{type}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),300)}
+function exportJSON(){download('progressx-history.json',JSON.stringify(data,null,2),'application/json')}function exportFullBackup(){
+  const backup={
+    app:'ProgressX',
+    exported_at:new Date().toISOString(),
+    workouts:data,
+    reminders:dailyReminders,
+    reminder_done:dailyDoneMap(),
+    water:getWaterState(),
+    food_products:foodProducts,
+    food_log:foodLog,
+    nutrition_targets:nutritionTargets,
+    tdee_profile:loadTdeeProfile()
+  };
+  download('progressx-full-backup.json',JSON.stringify(backup,null,2),'application/json');
+}
+function exportCSV(){const cols=['id','day','exercise','week','date','performance','status','notes'];const q=s=>'"'+String(s??'').replaceAll('"','""')+'"';download('progressx-history.csv',[cols.join(','),...data.map(r=>cols.map(c=>q(r[c])).join(','))].join('\n'),'text/csv')}
+async function importJSON(e){
+  try{
+    const j=JSON.parse(await e.target.files[0].text());
+    if(!Array.isArray(j))throw 0;
+    data=j; save();
+  }catch{alert('Invalid JSON file.')}
+}
+function resetData(){data=clone(bundled);save()}
+
+function updateSyncUI(ok=null,msg=''){
+  const b=$('syncBadge');if(!b)return;
+  if(ok===true){b.className='pill ok';b.textContent='Synced';}
+  else if(ok===false){b.className='pill skip';b.textContent='Sync error';}
+  else{b.className='pill warn';b.textContent='Connecting…';}
+  if(msg&&$('syncInfo'))$('syncInfo').textContent=msg;
+}
+function openSheet(){window.open(SHEET_URL,'_blank','noopener')}
+
+/*
+  PROGRESSX APPS SCRIPT URL
+  ------------------------
+  This build is preconfigured with one Apps Script URL. For GitHub/template use, each user should deploy ProgressX-AppScript.gs from THEIR OWN Google Sheet,
+  then paste the generated /exec URL into ProgressX → Data → Google Sheet Sync.
+  Do NOT paste the Google Sheet URL here; this field expects the Apps Script /exec URL.
+*/
+function getApiUrl(){
+  const u=$('appScriptUrl').value.trim();
+  if(!u)throw new Error('Apps Script Web App URL is missing.');
+  if(!/script\.google\.com\/macros\/s\/.+\/exec/.test(u))throw new Error('Paste the deployed Apps Script /exec URL.');
+  localStorage.setItem(SCRIPT_URL_KEY,u);
+  return u;
+}
+function apiCall(action,params={}){
+  return new Promise((resolve,reject)=>{
+    let base;
+    try{base=getApiUrl()}catch(e){reject(e);return}
+    const cb='progressxApi_'+Date.now()+'_'+Math.random().toString(36).slice(2);
+    const s=document.createElement('script');
+    let done=false;
+    const cleanup=()=>{try{delete window[cb]}catch{};s.remove()};
+    const timer=setTimeout(()=>{
+      if(done)return;done=true;cleanup();reject(new Error('Apps Script request timed out.'));
+    },20000);
+    window[cb]=resp=>{
+      if(done)return;done=true;clearTimeout(timer);cleanup();resolve(resp||{ok:false,error:'Empty response'});
+    };
+    s.onerror=()=>{
+      if(done)return;done=true;clearTimeout(timer);cleanup();reject(new Error('Could not reach Apps Script Web App.'));
+    };
+    const q=new URLSearchParams({action,callback:cb,_:Date.now().toString()});
+    Object.entries(params).forEach(([k,v])=>q.set(k,v==null?'':String(v)));
+    s.src=base+(base.includes('?')?'&':'?')+q.toString();
+    document.head.appendChild(s);
+  });
+}
+
+
+
+/* ===========================
+   V51 — BARCODE SCANNER
+   =========================== */
+let barcodeScanner=null;
+let barcodeScannerRunning=false;
+let barcodeLookupBusy=false;
+
+function barcodeStatus(text,good=null){
+  const el=$('barcodeScannerStatus');if(!el)return;
+  el.innerHTML=text;
+  el.style.borderColor=good===true?'#22c55e66':good===false?'#ef444466':'var(--line)';
+}
+async function openBarcodeScanner(){
+  $('barcodeModal').classList.add('show');
+  $('barcodeResult').classList.remove('show');
+  $('barcodeResult').innerHTML='';
+  barcodeStatus('Starting camera…');
+
+  if(!window.Html5Qrcode){
+    barcodeStatus('Camera scanner library could not load. You can still enter the barcode manually below.',false);
+    return;
+  }
+
+  try{
+    barcodeScanner=new Html5Qrcode('barcodeReader');
+    const config={
+      fps:10,
+      qrbox:{width:280,height:150},
+      aspectRatio:1.777778,
+      formatsToSupport:[
+        Html5QrcodeSupportedFormats.EAN_13,
+        Html5QrcodeSupportedFormats.EAN_8,
+        Html5QrcodeSupportedFormats.UPC_A,
+        Html5QrcodeSupportedFormats.UPC_E,
+        Html5QrcodeSupportedFormats.CODE_128
+      ]
+    };
+    await barcodeScanner.start(
+      {facingMode:'environment'},
+      config,
+      code=>handleScannedBarcode(code),
+      ()=>{}
+    );
+    barcodeScannerRunning=true;
+    barcodeStatus('Camera ready. Hold the barcode steady inside the frame.',true);
+  }catch(e){
+    barcodeStatus('Camera could not start. On mobile, camera access normally requires ProgressX to be hosted over HTTPS. Manual barcode search still works.',false);
+  }
+}
+async function closeBarcodeScanner(){
+  try{
+    if(barcodeScanner&&barcodeScannerRunning){
+      await barcodeScanner.stop();
+    }
+    if(barcodeScanner)await barcodeScanner.clear();
+  }catch{}
+  barcodeScannerRunning=false;
+  barcodeScanner=null;
+  $('barcodeModal')?.classList.remove('show');
+}
+async function handleScannedBarcode(code){
+  if(barcodeLookupBusy)return;
+  const clean=String(code||'').replace(/\D/g,'');
+  if(!clean)return;
+  if($('barcodeManualInput'))$('barcodeManualInput').value=clean;
+  try{
+    if(barcodeScanner&&barcodeScannerRunning){
+      await barcodeScanner.pause(true);
+    }
+  }catch{}
+  await lookupBarcode(clean);
+}
+function lookupManualBarcode(){
+  const code=String($('barcodeManualInput').value||'').replace(/\D/g,'');
+  if(!code){barcodeStatus('Enter a valid barcode number.',false);return}
+  lookupBarcode(code);
+}
+async function lookupBarcode(barcode){
+  if(barcodeLookupBusy)return;
+  barcodeLookupBusy=true;
+  barcodeStatus(`Searching Open Food Facts for <strong>${esc(barcode)}</strong>…`);
+  $('barcodeResult').classList.remove('show');
+
+  try{
+    const r=await apiCall('food_barcode_lookup',{barcode});
+    if(!r.ok)throw new Error(r.error||'Barcode lookup failed');
+
+    if(!r.found||!r.product){
+      barcodeStatus(`Product ${esc(barcode)} was not found. You can add it manually and keep the barcode saved in your own Food Library.`,false);
+      prefillScannedProduct({barcode,name:'',servingQty:100,servingUnit:'g',calories:0,protein:0,carbs:0,fat:0},false);
+      return;
+    }
+
+    const p=r.product;
+    barcodeStatus('Product found. Review the nutrition values before saving.',true);
+    $('barcodeResult').innerHTML=`
+      <div><b>${esc(p.name||'Scanned product')}</b></div>
+      ${p.brand?`<div class="tiny muted">${esc(p.brand)}</div>`:''}
+      <div class="foodMacros">
+        <span class="pill">${Math.round(Number(p.calories)||0)} kcal / 100g</span>
+        <span class="pill">P ${pnum(p.protein)}g</span>
+        <span class="pill">C ${pnum(p.carbs)}g</span>
+        <span class="pill">F ${pnum(p.fat)}g</span>
+      </div>
+      ${p.originalServing?`<div class="tiny muted" style="margin-top:7px">Label serving: ${esc(p.originalServing)}</div>`:''}
+      <button class="btn primary" style="width:100%;margin-top:10px" onclick='useScannedProduct(${JSON.stringify(JSON.stringify(p))})'>Use this product</button>
+    `;
+    $('barcodeResult').classList.add('show');
+  }catch(e){
+    barcodeStatus('Barcode lookup error: '+esc(e.message),false);
+  }finally{
+    barcodeLookupBusy=false;
+  }
+}
+function useScannedProduct(encoded){
+  let p=null;
+  try{p=JSON.parse(encoded)}catch{}
+  if(!p)return;
+  prefillScannedProduct(p,true);
+}
+function prefillScannedProduct(p,closeScanner=true){
+  toggleFoodProductForm(true);
+  $('foodEditId').value='';
+  $('foodBarcode').value=p.barcode||'';
+  $('foodName').value=p.name||'';
+  $('foodServingQty').value=Number(p.servingQty)||100;
+  $('foodServingUnit').value=p.servingUnit||'g';
+  $('foodCalories').value=Math.round((Number(p.calories)||0)*10)/10;
+  $('foodProtein').value=Math.round((Number(p.protein)||0)*10)/10;
+  $('foodCarbs').value=Math.round((Number(p.carbs)||0)*10)/10;
+  $('foodFat').value=Math.round((Number(p.fat)||0)*10)/10;
+
+  if(closeScanner)closeBarcodeScanner();
+  setTimeout(()=>$('foodName')?.focus(),100);
+}
+
+
+
+/* ===========================
+   V51 — SMART COMMON FOOD SEARCH
+   =========================== */
+const COMMON_FOODS=[
+  {name:'Chicken breast, cooked / boiled',aliases:['boiled chicken','cooked chicken','chicken breast','فراخ مسلوقة','فراخ','صدور فراخ'],calories:165,protein:31.0,carbs:0,fat:3.6},
+  {name:'Chicken thigh, cooked, skinless',aliases:['chicken thigh','cooked chicken thigh','ورك فراخ','افخاذ فراخ'],calories:209,protein:26.0,carbs:0,fat:10.9},
+  {name:'White rice, cooked',aliases:['rice cooked','cooked rice','white rice','رز مطبوخ','رز ابيض','رز'],calories:130,protein:2.7,carbs:28.2,fat:0.3},
+  {name:'Brown rice, cooked',aliases:['brown rice','رز بني'],calories:123,protein:2.7,carbs:25.6,fat:1.0},
+  {name:'Egg, boiled',aliases:['boiled egg','egg boiled','egg','بيض مسلوق','بيض'],calories:155,protein:12.6,carbs:1.1,fat:10.6},
+  {name:'Egg white, cooked',aliases:['egg white','بياض بيض','بياض البيض'],calories:52,protein:10.9,carbs:0.7,fat:0.2},
+  {name:'Banana, raw',aliases:['banana','موز'],calories:89,protein:1.1,carbs:22.8,fat:0.3},
+  {name:'Apple, raw',aliases:['apple','تفاح'],calories:52,protein:0.3,carbs:13.8,fat:0.2},
+  {name:'Potato, boiled',aliases:['boiled potato','potato boiled','بطاطس مسلوقة','بطاطس'],calories:87,protein:1.9,carbs:20.1,fat:0.1},
+  {name:'Sweet potato, cooked',aliases:['sweet potato','بطاطا','بطاطا حلوة'],calories:90,protein:2.0,carbs:20.7,fat:0.2},
+  {name:'Oats, dry',aliases:['oats','rolled oats','شوفان'],calories:389,protein:16.9,carbs:66.3,fat:6.9},
+  {name:'Greek yogurt, plain, low-fat',aliases:['greek yogurt','yogurt greek','زبادي يوناني','يوغرت يوناني'],calories:73,protein:9.9,carbs:3.9,fat:1.9},
+  {name:'Yogurt, plain, whole milk',aliases:['yogurt','زبادي'],calories:61,protein:3.5,carbs:4.7,fat:3.3},
+  {name:'Milk, whole',aliases:['whole milk','milk','لبن كامل الدسم','لبن'],calories:61,protein:3.2,carbs:4.8,fat:3.3},
+  {name:'Tuna, canned in water, drained',aliases:['tuna water','tuna canned','تونة ماء','تونة'],calories:116,protein:25.5,carbs:0,fat:0.8},
+  {name:'Salmon, cooked',aliases:['salmon cooked','salmon','سلمون'],calories:206,protein:22.1,carbs:0,fat:12.4},
+  {name:'Beef, lean, cooked',aliases:['lean beef','beef cooked','لحم بقري','لحم'],calories:250,protein:26.0,carbs:0,fat:15.0},
+  {name:'Lentils, cooked',aliases:['lentils cooked','lentils','عدس مطبوخ','عدس'],calories:116,protein:9.0,carbs:20.1,fat:0.4},
+  {name:'Chickpeas, cooked',aliases:['chickpeas','حمص مطبوخ','حمص'],calories:164,protein:8.9,carbs:27.4,fat:2.6},
+  {name:'Pasta, cooked',aliases:['pasta cooked','pasta','مكرونة مطبوخة','مكرونة'],calories:158,protein:5.8,carbs:30.9,fat:0.9},
+  {name:'Peanut butter',aliases:['peanut butter','زبدة فول سوداني'],calories:588,protein:25.1,carbs:20.0,fat:50.4},
+  {name:'Almonds',aliases:['almonds','لوز'],calories:579,protein:21.2,carbs:21.6,fat:49.9},
+  {name:'Avocado',aliases:['avocado','افوكادو'],calories:160,protein:2.0,carbs:8.5,fat:14.7},
+  {name:'Broccoli, cooked',aliases:['broccoli cooked','broccoli','بروكلي'],calories:35,protein:2.4,carbs:7.2,fat:0.4},
+  {name:'Orange, raw',aliases:['orange','برتقال'],calories:47,protein:0.9,carbs:11.8,fat:0.1},
+  {name:'Dates',aliases:['dates','تمر'],calories:282,protein:2.5,carbs:75.0,fat:0.4}
+].map((x,i)=>({id:'common_'+(i+1),source:'common',servingQty:100,servingUnit:'g',barcode:'',...x}));
+
+function normalizeFoodSearch(s){
+  return String(s||'').toLowerCase().replace(/[^\p{L}\p{N}\s]/gu,' ').replace(/\s+/g,' ').trim();
+}
+function commonFoodScore(food,q){
+  const nq=normalizeFoodSearch(q);
+  if(!nq)return 0;
+  const terms=nq.split(' ').filter(Boolean);
+  const hay=[food.name,...(food.aliases||[])].map(normalizeFoodSearch);
+  let score=0;
+  for(const h of hay){
+    if(h===nq)score=Math.max(score,100);
+    else if(h.startsWith(nq))score=Math.max(score,80);
+    else if(h.includes(nq))score=Math.max(score,65);
+    let termScore=0;
+    for(const t of terms)if(h.includes(t))termScore+=20;
+    score=Math.max(score,termScore);
+  }
+  return score;
+}
+function searchCommonFoods(q){
+  return COMMON_FOODS.map(f=>({food:f,score:commonFoodScore(f,q)}))
+    .filter(x=>x.score>0)
+    .sort((a,b)=>b.score-a.score||a.food.name.localeCompare(b.food.name))
+    .slice(0,8)
+    .map(x=>({...x.food,_score:x.score}));
+}
+function commonFoodToOnlineResult(f){
+  return {source:'common',barcode:'',name:f.name,brand:'Common food',servingQty:100,servingUnit:'g',
+    calories:f.calories,protein:f.protein,carbs:f.carbs,fat:f.fat,originalServing:'100 g',quantity:'',image:''};
+}
+
+/* ===========================
+   V51 — ONLINE FOOD SEARCH
+   =========================== */
+let progressXBackendInfo=null;
+
+async function checkProgressXBackend(){
+  try{
+    const r=await apiCall('ping',{});
+    progressXBackendInfo=r||null;
+    return r;
+  }catch(e){
+    progressXBackendInfo={ok:false,error:String(e?.message||e)};
+    return progressXBackendInfo;
+  }
+}
+
+let onlineFoodSearchBusy=false;
+let onlineFoodResultsCache=[];
+
+function setOnlineFoodSearchState(text,ok=null){
+  const el=$('onlineFoodSearchState');if(!el)return;
+  el.textContent=text;
+  el.style.color=ok===true?'var(--green)':ok===false?'var(--red)':'var(--muted)';
+}
+async function searchFoodOnline(){
+  const q=String($('onlineFoodQuery')?.value||'').trim();
+  if(q.length<2){
+    setOnlineFoodSearchState('Type at least 2 characters.',false);
+    return;
+  }
+  if(onlineFoodSearchBusy)return;
+
+  onlineFoodSearchBusy=true;
+
+  const common=searchCommonFoods(q).map(commonFoodToOnlineResult);
+  onlineFoodResultsCache=[...common];
+  renderOnlineFoodResults();
+
+  setOnlineFoodSearchState(
+    common.length
+      ? `Found ${common.length} common food match${common.length===1?'':'es'}. Searching packaged products too…`
+      : 'No common food match yet. Searching packaged products online…'
+  );
+
+  try{
+    const r=await apiCall('food_search_online',{q});
+    if(!r.ok)throw new Error(r.error||'Internet food search failed');
+
+    const packaged=(Array.isArray(r.products)?r.products:[]).map(p=>({...p,source:'packaged'}));
+    const seen=new Set(common.map(x=>normalizeFoodSearch(x.name)));
+    const filtered=packaged.filter(p=>{
+      const key=normalizeFoodSearch(p.name);
+      if(!key||seen.has(key))return false;
+      seen.add(key);
+      return true;
+    });
+
+    onlineFoodResultsCache=[...common,...filtered];
+    renderOnlineFoodResults();
+
+    if(onlineFoodResultsCache.length){
+      setOnlineFoodSearchState(`${common.length} common food${common.length===1?'':'s'} + ${filtered.length} packaged product${filtered.length===1?'':'s'}. Common foods are shown first.`,true);
+    }else{
+      setOnlineFoodSearchState(`No usable food results found for "${q}".`,false);
+    }
+  }catch(e){
+    const msg=String(e?.message||e||'');
+    const missingOnlineAction=/Unknown action:\s*food_search_online/i.test(msg);
+
+    if(common.length){
+      setOnlineFoodSearchState(
+        missingOnlineAction
+          ? `Showing ${common.length} common food result${common.length===1?'':'s'}. Packaged-product search is not enabled on the current Apps Script deployment.`
+          : `Showing ${common.length} common food result${common.length===1?'':'s'}. Packaged search unavailable: ${msg}`,
+        true
+      );
+    }else{
+      onlineFoodResultsCache=[];
+      renderOnlineFoodResults();
+      setOnlineFoodSearchState(
+        missingOnlineAction
+          ? 'No common food match. Packaged-product search is not enabled on the current Apps Script deployment.'
+          : 'Search error: '+msg,
+        false
+      );
+    }
+  }finally{
+    onlineFoodSearchBusy=false;
+  }
+}
+function renderOnlineFoodResults(){
+  const box=$('onlineFoodResults');if(!box)return;
+  if(!onlineFoodResultsCache.length){
+    box.innerHTML='<div class="empty">No results.</div>';
+    return;
+  }
+
+  box.innerHTML=onlineFoodResultsCache.map((p,i)=>`
+    <div class="onlineFoodCard">
+      ${p.image
+        ? `<img class="onlineFoodImage" src="${esc(p.image)}" alt="" loading="lazy">`
+        : `<div class="onlineFoodImage placeholder">${p.source==='common'?'🥗':'🍽️'}</div>`}
+      <div>
+        <div class="onlineFoodName">${esc(p.name)}</div>
+        <div style="margin-top:4px"><span class="sourceBadge ${p.source==='common'?'common':'packaged'}">${p.source==='common'?'Common food':'Packaged product'}</span></div>
+        ${p.brand&&p.source!=='common'?`<div class="onlineFoodBrand">${esc(p.brand)}</div>`:''}
+        <div class="tiny muted" style="margin-top:4px">${Math.round(Number(p.calories)||0)} kcal / 100g${p.quantity?` • ${esc(p.quantity)}`:''}</div>
+        <div class="foodMacros">
+          <span class="pill">P ${pnum(p.protein)}g</span>
+          <span class="pill">C ${pnum(p.carbs)}g</span>
+          <span class="pill">F ${pnum(p.fat)}g</span>
+        </div>
+        ${p.source==='common'?`<div class="commonHint">Standard estimate per 100g. Exact values vary with cut, brand and cooking method.</div>`:''}
+      </div>
+      <div class="onlineFoodActions">
+        <button class="btn primary" onclick="saveOnlineFoodToLibrary(${i})">＋ Save to library</button>
+        <button class="btn soft" onclick="reviewOnlineFood(${i})">Review / edit</button>
+      </div>
+    </div>
+  `).join('');
+}
+async function saveOnlineFoodToLibrary(index){
+  const p=onlineFoodResultsCache[index];if(!p)return;
+
+  const duplicate=foodProducts.find(x=>
+    (p.barcode&&x.barcode&&String(x.barcode)===String(p.barcode)) ||
+    (!p.barcode&&String(x.name||'').toLowerCase()===String(p.name||'').toLowerCase())
+  );
+  if(duplicate){
+    setOnlineFoodSearchState(`${p.name} is already in your Food Library.`,true);
+    return;
+  }
+
+  const tempId='temp_online_'+Date.now();
+  const product={
+    id:tempId,
+    barcode:p.barcode||'',
+    name:p.name||'Online food',
+    servingQty:Number(p.servingQty)||100,
+    servingUnit:p.servingUnit||'g',
+    calories:Number(p.calories)||0,
+    protein:Number(p.protein)||0,
+    carbs:Number(p.carbs)||0,
+    fat:Number(p.fat)||0
+  };
+
+  foodProducts.push(product);
+  localStorage.setItem(FOOD_PRODUCTS_KEY,JSON.stringify(foodProducts));
+  renderNutrition();
+  setOnlineFoodSearchState(`Saving ${p.name} to your library…`);
+
+  try{
+    const r=await apiCall('food_product_upsert',{...product,id:''});
+    if(!r.ok)throw new Error(r.error||'Could not save product');
+
+    const row=foodProducts.find(x=>String(x.id)===String(tempId));
+    if(row)row.id=String(r.id);
+
+    localStorage.setItem(FOOD_PRODUCTS_KEY,JSON.stringify(foodProducts));
+    renderNutrition();
+    setOnlineFoodSearchState(`${p.name} saved to Food Library.`,true);
+  }catch(e){
+    foodProducts=foodProducts.filter(x=>String(x.id)!==String(tempId));
+    localStorage.setItem(FOOD_PRODUCTS_KEY,JSON.stringify(foodProducts));
+    renderNutrition();
+    setOnlineFoodSearchState('Could not save product: '+e.message,false);
+  }
+}
+function reviewOnlineFood(index){
+  const p=onlineFoodResultsCache[index];if(!p)return;
+  toggleFoodProductForm(true);
+  $('foodEditId').value='';
+  $('foodBarcode').value=p.barcode||'';
+  $('foodName').value=p.name||'';
+  $('foodServingQty').value=Number(p.servingQty)||100;
+  $('foodServingUnit').value=p.servingUnit||'g';
+  $('foodCalories').value=Math.round((Number(p.calories)||0)*10)/10;
+  $('foodProtein').value=Math.round((Number(p.protein)||0)*10)/10;
+  $('foodCarbs').value=Math.round((Number(p.carbs)||0)*10)/10;
+  $('foodFat').value=Math.round((Number(p.fat)||0)*10)/10;
+  setTimeout(()=>$('foodName')?.focus(),100);
+}
+
+/* ===========================
+   V51 — NUTRITION
+   =========================== */
+const FOOD_PRODUCTS_KEY='progressx-food-products';
+const FOOD_LOG_KEY='progressx-food-log';
+const NUTRITION_TARGETS_KEY='progressx-nutrition-targets';
+const TDEE_PROFILE_KEY='progressx-tdee-profile';
+
+let foodProducts=loadLocalArray(FOOD_PRODUCTS_KEY);
+let foodLog=loadLocalArray(FOOD_LOG_KEY);
+let nutritionTargets=loadNutritionTargets();
+
+function loadLocalArray(key){
+  try{const x=JSON.parse(localStorage.getItem(key));return Array.isArray(x)?x:[]}catch{return []}
+}
+
+function loadTdeeProfile(){
+  try{return JSON.parse(localStorage.getItem(TDEE_PROFILE_KEY))||null}catch{return null}
+}
+function saveTdeeProfile(profile){
+  localStorage.setItem(TDEE_PROFILE_KEY,JSON.stringify(profile||{}));
+}
+
+function readTdeeCalculator(){
+  const sex=$('tSex')?.value||'male';
+  const age=Number($('tAge')?.value);
+  const weight=Number($('tWeight')?.value);
+  const height=Number($('tHeight')?.value);
+  const activity=Number($('tActivity')?.value);
+  const goal=Number($('tGoal')?.value);
+
+  if(!(age>0&&weight>0&&height>0&&activity>0))return null;
+
+  const bmr=10*weight+6.25*height-5*age+(sex==='male'?5:-161);
+  const tdee=bmr*activity;
+  const target=tdee+goal;
+
+  return {sex,age,weight,height,activity,goal,bmr,tdee,target};
+}
+
+function readMacroCalculator(calories,weight){
+  const proteinPerKg=Number($('mProtein')?.value)||2;
+  const fatPerKg=Number($('mFat')?.value)||0.8;
+
+  if(!(calories>0&&weight>0&&proteinPerKg>0&&fatPerKg>0))return null;
+
+  const protein=weight*proteinPerKg;
+  const fat=weight*fatPerKg;
+  const carbs=(calories-protein*4-fat*9)/4;
+
+  if(carbs<0)return null;
+
+  return {
+    calories,
+    weight,
+    proteinPerKg,
+    fatPerKg,
+    protein,
+    carbs,
+    fat
+  };
+}
+
+function restoreTdeeProfile(){
+  const p=loadTdeeProfile();
+  if(!p)return;
+
+  const values={
+    tSex:p.sex,
+    tAge:p.age,
+    tWeight:p.weight,
+    tHeight:p.height,
+    tActivity:p.activity,
+    tGoal:p.goal,
+    mProtein:p.proteinPerKg,
+    mFat:p.fatPerKg
+  };
+
+  for(const [id,value] of Object.entries(values)){
+    const el=$(id);
+    if(el && value!==undefined && value!==null && value!=='') el.value=value;
+  }
+
+  if($('mCal') && p.targetCalories) $('mCal').value=Math.round(Number(p.targetCalories));
+  if($('mWeight') && p.weight) $('mWeight').value=Number(p.weight);
+
+  const state=$('tdeeNutritionState');
+  if(state && p.targets){
+    state.textContent=
+      `Saved: ${Math.round(Number(p.targets.calories))} kcal • `+
+      `P ${Math.round(Number(p.targets.protein))}g • `+
+      `C ${Math.round(Number(p.targets.carbs))}g • `+
+      `F ${Math.round(Number(p.targets.fat))}g`;
+  }
+}
+
+async function saveTdeeToNutrition(){
+  const t=readTdeeCalculator();
+  const state=$('tdeeNutritionState');
+
+  if(!t){
+    if(state)state.textContent='Enter valid TDEE details first.';
+    alert('Enter valid Calories / TDEE details first.');
+    return;
+  }
+
+  // Exact goal-adjusted result from Calories / TDEE.
+  const calories=Math.round(t.target);
+
+  // Keep Macro Targets calculator in sync with the same calories and body weight.
+  if($('mCal'))$('mCal').value=calories;
+  if($('mWeight'))$('mWeight').value=t.weight;
+
+  const macro=readMacroCalculator(calories,t.weight);
+  if(!macro){
+    alert('Protein + fat targets exceed the calorie target. Adjust Macro targets first.');
+    return;
+  }
+
+  // Exact macro result from the Macro Targets settings.
+  const targets={
+    calories,
+    protein:Math.round(macro.protein),
+    carbs:Math.round(macro.carbs),
+    fat:Math.round(macro.fat)
+  };
+
+  nutritionTargets=targets;
+  localStorage.setItem(NUTRITION_TARGETS_KEY,JSON.stringify(targets));
+
+  const profile={
+    savedAt:new Date().toISOString(),
+    sex:t.sex,
+    age:t.age,
+    weight:t.weight,
+    height:t.height,
+    activity:t.activity,
+    goal:t.goal,
+    bmr:Math.round(t.bmr),
+    estimatedTdee:Math.round(t.tdee),
+    targetCalories:calories,
+    proteinPerKg:macro.proteinPerKg,
+    fatPerKg:macro.fatPerKg,
+    targets
+  };
+  saveTdeeProfile(profile);
+
+  // Update both calculator result boxes using exactly the values being saved.
+  $('tResult').innerHTML=
+    `<div class="resultBig">${fmt(t.target)} kcal/day</div>`+
+    `<div class="resultRows">`+
+      `<div class="mini"><b>${fmt(t.bmr)}</b><span class="tiny muted">BMR</span></div>`+
+      `<div class="mini"><b>${fmt(t.tdee)}</b><span class="tiny muted">Estimated TDEE</span></div>`+
+    `</div>`;
+
+  $('mResult').innerHTML=
+    `<div class="resultRows">`+
+      `<div class="mini"><b>${fmt(macro.protein)} g</b><span class="tiny muted">Protein</span></div>`+
+      `<div class="mini"><b>${fmt(macro.fat)} g</b><span class="tiny muted">Fat</span></div>`+
+      `<div class="mini"><b>${fmt(macro.carbs)} g</b><span class="tiny muted">Carbs</span></div>`+
+      `<div class="mini"><b>${fmt(macro.protein*4+macro.fat*9+macro.carbs*4)}</b><span class="tiny muted">kcal check</span></div>`+
+    `</div>`;
+
+  if(state){
+    state.textContent=
+      `Saved: ${targets.calories} kcal • `+
+      `P ${targets.protein}g • C ${targets.carbs}g • F ${targets.fat}g`;
+  }
+
+  try{
+    if($('appScriptUrl')?.value.trim()){
+      const r=await apiCall('nutrition_targets_save',{targets:JSON.stringify(targets)});
+      if(!r.ok)throw new Error(r.error||'Sync failed');
+      setNutritionSyncState('Nutrition targets synced from Calories / TDEE',true);
+    }
+  }catch(e){
+    setNutritionSyncState('Saved locally; Google Sheet sync error: '+e.message,false);
+  }
+
+  renderNutrition();
+}
+
+function loadNutritionTargets(){
+  try{
+    const x=JSON.parse(localStorage.getItem(NUTRITION_TARGETS_KEY))||{};
+    return {
+      calories:Number(x.calories)||2200,
+      protein:Number(x.protein)||180,
+      carbs:Number(x.carbs)||220,
+      fat:Number(x.fat)||70
+    };
+  }catch{return {calories:2200,protein:180,carbs:220,fat:70}}
+}
+function setNutritionSyncState(text,ok=null){
+  const el=$('nutritionSyncState');if(!el)return;
+  el.textContent=text;
+  el.style.color=ok===true?'var(--green)':ok===false?'var(--red)':'var(--muted)';
+}
+function selectedNutritionDate(){return $('nutritionDate')?.value||localDateKey()}
+function nutritionEntries(date=selectedNutritionDate()){return foodLog.filter(x=>String(x.date)===String(date))}
+function nutritionTotals(date=selectedNutritionDate()){
+  return nutritionEntries(date).reduce((a,x)=>{
+    a.calories+=Number(x.calories)||0;
+    a.protein+=Number(x.protein)||0;
+    a.carbs+=Number(x.carbs)||0;
+    a.fat+=Number(x.fat)||0;
+    return a;
+  },{calories:0,protein:0,carbs:0,fat:0});
+}
+function macroPercent(v,target){return target>0?Math.min(100,(v/target)*100):0}
+function setMacroUI(prefix,totals){
+  const pairs=[
+    ['Calories','calories',''],
+    ['Protein','protein','g'],
+    ['Carbs','carbs','g'],
+    ['Fat','fat','g']
+  ];
+  pairs.forEach(([suffix,key,unit])=>{
+    const val=Math.round((Number(totals[key])||0)*10)/10;
+    const target=Number(nutritionTargets[key])||0;
+    const text=`${val}${unit} / ${target}${unit}`;
+    const valueEl=$(prefix+suffix);
+    const bar=$(prefix+suffix+'Bar');
+    if(valueEl)valueEl.textContent=text;
+    if(bar)bar.style.width=macroPercent(val,target)+'%';
+  });
+}
+function renderNutrition(){
+  if(!$('nutritionDate'))return;
+  const totals=nutritionTotals();
+  setMacroUI('n',totals);
+
+  const entries=nutritionEntries();
+  $('foodEntryCount').textContent=`${entries.length} item${entries.length===1?'':'s'}`;
+
+  const meals=['Breakfast','Lunch','Dinner','Snack'];
+  $('foodDiaryList').innerHTML=meals.map(meal=>{
+    const rows=entries.filter(x=>x.meal===meal);
+    if(!rows.length)return '';
+    const mealCals=Math.round(rows.reduce((s,x)=>s+(Number(x.calories)||0),0));
+    return `<div class="foodMealGroup">
+      <div class="foodMealTitle"><span>${meal}</span><span class="tiny muted">${mealCals} kcal</span></div>
+      ${rows.map(foodLogCard).join('')}
+    </div>`;
+  }).join('')||'<div class="empty">No food logged for this day.</div>';
+
+  renderFoodLibrary();
+  buildFoodQuickSelect();
+  updateFoodQuickPreview();
+  renderNutritionHome();
+}
+function renderNutritionHome(){
+  const today=nutritionTotals(localDateKey());
+  setMacroUI('home',today);
+}
+function foodLogCard(x){
+  return `<div class="foodLogCard">
+    <div class="foodLogTop">
+      <div>
+        <b>${esc(x.name)}</b>
+        <div class="tiny muted">${pnum(x.amount)} ${esc(x.servingUnit)} • ${Math.round(Number(x.calories)||0)} kcal</div>
+      </div>
+      <button class="btn danger" style="padding:7px 10px" onclick="deleteFoodLogEntry('${esc(x.id)}')">Delete</button>
+    </div>
+    <div class="foodMacros">
+      <span class="pill">P ${pnum(x.protein)}g</span>
+      <span class="pill">C ${pnum(x.carbs)}g</span>
+      <span class="pill">F ${pnum(x.fat)}g</span>
+    </div>
+  </div>`;
+}
+function renderFoodLibrary(){
+  const q=String($('foodSearch')?.value||'').trim().toLowerCase();
+  const list=foodProducts.filter(x=>!q||String(x.name).toLowerCase().includes(q)).sort((a,b)=>String(a.name).localeCompare(String(b.name)));
+  $('foodLibrary').innerHTML=list.map(p=>`<div class="foodProductCard">
+    <div class="foodProductTop">
+      <div>
+        <b>${esc(p.name)}</b>
+        <div class="tiny muted">Per ${pnum(p.servingQty)} ${esc(p.servingUnit)} • ${Math.round(Number(p.calories)||0)} kcal</div>${p.barcode?`<div class="foodBarcodeLine">Barcode: ${esc(p.barcode)}</div>`:''}
+      </div>
+      <div class="actions">
+        <button class="btn soft" style="padding:7px 9px" onclick="editFoodProduct('${esc(p.id)}')">Edit</button>
+        <button class="btn danger" style="padding:7px 9px" onclick="deleteFoodProduct('${esc(p.id)}')">Delete</button>
+      </div>
+    </div>
+    <div class="foodMacros">
+      <span class="pill">P ${pnum(p.protein)}g</span>
+      <span class="pill">C ${pnum(p.carbs)}g</span>
+      <span class="pill">F ${pnum(p.fat)}g</span>
+    </div>
+  </div>`).join('')||'<div class="empty">No saved foods yet.</div>';
+}
+function buildFoodQuickSelect(){
+  const sel=$('foodQuickProduct');if(!sel)return;
+  const old=sel.value;
+  const sorted=[...foodProducts].sort((a,b)=>String(a.name).localeCompare(String(b.name)));
+  sel.innerHTML='<option value="">Choose food…</option>'+sorted.map(p=>`<option value="${esc(p.id)}">${esc(p.name)}</option>`).join('');
+  if(sorted.some(p=>String(p.id)===String(old)))sel.value=old;
+}
+function selectedFoodProduct(){return foodProducts.find(p=>String(p.id)===String($('foodQuickProduct')?.value))||null}
+function updateFoodQuickPreview(){
+  const p=selectedFoodProduct();
+  if(!p){if($('foodQuickPreview'))$('foodQuickPreview').textContent='Select a saved food to preview calories and macros.';return}
+  if($('foodQuickAmountLabel'))$('foodQuickAmountLabel').textContent=`Amount (${p.servingUnit})`;
+  if(!$('foodQuickAmount').dataset.changed)$('foodQuickAmount').value=p.servingQty;
+  const amount=Number($('foodQuickAmount').value)||0;
+  const factor=p.servingQty>0?amount/p.servingQty:0;
+  $('foodQuickPreview').innerHTML=`<strong>${esc(p.name)}</strong> • ${pnum(amount)} ${esc(p.servingUnit)} → <strong>${Math.round(p.calories*factor)} kcal</strong> · P ${pnum(p.protein*factor)}g · C ${pnum(p.carbs*factor)}g · F ${pnum(p.fat*factor)}g`;
+}
+function toggleFoodProductForm(open=true){
+  $('foodProductForm')?.classList.toggle('open',!!open);
+  if(!open){
+    $('foodEditId').value='';
+    ['foodName','foodBarcode','foodCalories','foodProtein','foodCarbs','foodFat'].forEach(id=>$(id).value='');
+    $('foodServingQty').value='100';$('foodServingUnit').value='g';
+  }
+}
+function editFoodProduct(id){
+  const p=foodProducts.find(x=>String(x.id)===String(id));if(!p)return;
+  $('foodEditId').value=p.id;$('foodBarcode').value=p.barcode||'';$('foodName').value=p.name;$('foodServingQty').value=p.servingQty;$('foodServingUnit').value=p.servingUnit;
+  $('foodCalories').value=p.calories;$('foodProtein').value=p.protein;$('foodCarbs').value=p.carbs;$('foodFat').value=p.fat;
+  toggleFoodProductForm(true);
+}
+async function saveFoodProduct(){
+  const product={
+    id:$('foodEditId').value||'',
+    barcode:$('foodBarcode').value.trim(),
+    name:$('foodName').value.trim(),
+    servingQty:Number($('foodServingQty').value)||1,
+    servingUnit:$('foodServingUnit').value.trim()||'serving',
+    calories:Number($('foodCalories').value)||0,
+    protein:Number($('foodProtein').value)||0,
+    carbs:Number($('foodCarbs').value)||0,
+    fat:Number($('foodFat').value)||0
+  };
+
+  if(!product.name){alert('Product name is required.');return}
+
+  const existingIndex=product.id
+    ? foodProducts.findIndex(x=>String(x.id)===String(product.id))
+    : -1;
+  const backup=existingIndex>=0?clone(foodProducts[existingIndex]):null;
+  const tempId=product.id||('temp_product_'+Date.now());
+
+  const optimistic={...product,id:tempId};
+  if(existingIndex>=0)foodProducts[existingIndex]=optimistic;
+  else foodProducts.push(optimistic);
+
+  localStorage.setItem(FOOD_PRODUCTS_KEY,JSON.stringify(foodProducts));
+  toggleFoodProductForm(false);
+  renderNutrition();
+  setNutritionSyncState('Saving product in background…');
+
+  try{
+    const payload={...product,id:product.id||''};
+    const r=await apiCall('food_product_upsert',payload);
+    if(!r.ok)throw new Error(r.error||'Could not save product');
+
+    const i=foodProducts.findIndex(x=>String(x.id)===String(tempId));
+    if(i>=0)foodProducts[i].id=String(r.id);
+
+    localStorage.setItem(FOOD_PRODUCTS_KEY,JSON.stringify(foodProducts));
+    renderNutrition();
+    setNutritionSyncState('Food product saved to Google Sheet',true);
+  }catch(e){
+    if(existingIndex>=0 && backup){
+      const i=foodProducts.findIndex(x=>String(x.id)===String(tempId));
+      if(i>=0)foodProducts[i]=backup;
+    }else{
+      foodProducts=foodProducts.filter(x=>String(x.id)!==String(tempId));
+    }
+
+    localStorage.setItem(FOOD_PRODUCTS_KEY,JSON.stringify(foodProducts));
+    renderNutrition();
+    setNutritionSyncState('Food product sync error: '+e.message,false);
+    alert('Could not save product to Google Sheet: '+e.message);
+  }
+}
+async function deleteFoodProduct(id){
+  if(!confirm('Delete this product from your food library? Existing diary entries will stay unchanged.'))return;
+
+  const idx=foodProducts.findIndex(x=>String(x.id)===String(id));
+  const backup=idx>=0?clone(foodProducts[idx]):null;
+
+  if(idx>=0)foodProducts.splice(idx,1);
+  localStorage.setItem(FOOD_PRODUCTS_KEY,JSON.stringify(foodProducts));
+  renderNutrition();
+  setNutritionSyncState('Deleting product in background…');
+
+  try{
+    const r=await apiCall('food_product_delete',{id});
+    if(!r.ok)throw new Error(r.error||'Delete failed');
+    setNutritionSyncState('Food product deleted',true);
+  }catch(e){
+    if(backup){
+      foodProducts.push(backup);
+      localStorage.setItem(FOOD_PRODUCTS_KEY,JSON.stringify(foodProducts));
+      renderNutrition();
+    }
+    setNutritionSyncState('Delete error: '+e.message,false);
+    alert('Could not delete product from Google Sheet: '+e.message);
+  }
+}
+async function addFoodToDiary(){
+  const p=selectedFoodProduct();
+  if(!p){alert('Choose a saved food first.');return}
+
+  const amount=Number($('foodQuickAmount').value)||0;
+  if(amount<=0){alert('Enter an amount greater than 0.');return}
+
+  const factor=amount/(Number(p.servingQty)||1);
+  const tempId='temp_food_'+Date.now();
+
+  const entry={
+    id:tempId,
+    date:selectedNutritionDate(),
+    meal:$('foodQuickMeal').value,
+    productId:p.id,
+    name:p.name,
+    amount,
+    servingQty:p.servingQty,
+    servingUnit:p.servingUnit,
+    calories:p.calories*factor,
+    protein:p.protein*factor,
+    carbs:p.carbs*factor,
+    fat:p.fat*factor
+  };
+
+  // Optimistic UI: show immediately.
+  foodLog.push(entry);
+  localStorage.setItem(FOOD_LOG_KEY,JSON.stringify(foodLog));
+  renderNutrition();
+  setNutritionSyncState('Saving food in background…');
+
+  try{
+    const payload={...entry,id:''};
+    const r=await apiCall('food_log_upsert',payload);
+    if(!r.ok)throw new Error(r.error||'Could not add food');
+
+    const i=foodLog.findIndex(x=>String(x.id)===String(tempId));
+    if(i>=0)foodLog[i].id=String(r.id);
+
+    localStorage.setItem(FOOD_LOG_KEY,JSON.stringify(foodLog));
+    renderNutrition();
+    setNutritionSyncState('Food diary synced',true);
+  }catch(e){
+    foodLog=foodLog.filter(x=>String(x.id)!==String(tempId));
+    localStorage.setItem(FOOD_LOG_KEY,JSON.stringify(foodLog));
+    renderNutrition();
+    setNutritionSyncState('Food diary sync error: '+e.message,false);
+    alert('Could not save food to Google Sheet: '+e.message);
+  }
+}
+async function deleteFoodLogEntry(id){
+  const idx=foodLog.findIndex(x=>String(x.id)===String(id));
+  const backup=idx>=0?clone(foodLog[idx]):null;
+
+  // Optimistic UI: remove immediately.
+  if(idx>=0)foodLog.splice(idx,1);
+  localStorage.setItem(FOOD_LOG_KEY,JSON.stringify(foodLog));
+  renderNutrition();
+  setNutritionSyncState('Deleting food in background…');
+
+  try{
+    const r=await apiCall('food_log_delete',{id});
+    if(!r.ok)throw new Error(r.error||'Delete failed');
+    setNutritionSyncState('Food entry deleted',true);
+  }catch(e){
+    if(backup){
+      foodLog.push(backup);
+      localStorage.setItem(FOOD_LOG_KEY,JSON.stringify(foodLog));
+      renderNutrition();
+    }
+    setNutritionSyncState('Delete error: '+e.message,false);
+    alert('Could not delete food from Google Sheet: '+e.message);
+  }
+}
+function toggleNutritionTargets(open){
+  const f=$('nutritionTargetsForm');if(!f)return;
+  const next=typeof open==='boolean'?open:!f.classList.contains('open');
+  f.classList.toggle('open',next);
+  if(next){
+    $('targetCalories').value=nutritionTargets.calories;$('targetProtein').value=nutritionTargets.protein;
+    $('targetCarbs').value=nutritionTargets.carbs;$('targetFat').value=nutritionTargets.fat;
+  }
+}
+async function saveNutritionTargets(){
+  const t={
+    calories:Number($('targetCalories').value)||2200,protein:Number($('targetProtein').value)||180,
+    carbs:Number($('targetCarbs').value)||220,fat:Number($('targetFat').value)||70
+  };
+  try{
+    const r=await apiCall('nutrition_targets_save',{targets:JSON.stringify(t)});
+    if(!r.ok)throw new Error(r.error||'Could not save targets');
+    nutritionTargets=t;localStorage.setItem(NUTRITION_TARGETS_KEY,JSON.stringify(t));
+    toggleNutritionTargets(false);renderNutrition();setNutritionSyncState('Nutrition targets synced',true);
+  }catch(e){setNutritionSyncState('Target sync error: '+e.message,false)}
+}
+async function syncNutritionFromSheet(){
+  if(!$('appScriptUrl')?.value.trim())return;
+  try{
+    setNutritionSyncState('Loading nutrition from Google Sheet…');
+    const date=selectedNutritionDate();
+    const [pr,lr,tr]=await Promise.all([
+      apiCall('food_products_list'),
+      apiCall('food_log_list',{date}),
+      apiCall('nutrition_targets_get')
+    ]);
+    if(!pr.ok)throw new Error(pr.error||'Product sync failed');
+    if(!lr.ok)throw new Error(lr.error||'Food log sync failed');
+    if(!tr.ok)throw new Error(tr.error||'Target sync failed');
+
+    foodProducts=Array.isArray(pr.products)?pr.products:[];
+    const remoteEntries=Array.isArray(lr.entries)?lr.entries:[];
+    foodLog=foodLog.filter(x=>String(x.date)!==String(date)).concat(remoteEntries);
+    nutritionTargets=tr.targets||nutritionTargets;
+
+    localStorage.setItem(FOOD_PRODUCTS_KEY,JSON.stringify(foodProducts));
+    localStorage.setItem(FOOD_LOG_KEY,JSON.stringify(foodLog));
+    localStorage.setItem(NUTRITION_TARGETS_KEY,JSON.stringify(nutritionTargets));
+    renderNutrition();
+    setNutritionSyncState(`Nutrition synced • ${foodProducts.length} saved foods`,true);
+  }catch(e){
+    setNutritionSyncState('Using local nutrition data • '+e.message,false);
+    renderNutrition();
+  }
+}
+
+let reminderSheetSaveTimer=null;
+let dailySheetSaveTimer=null;
+
+function setReminderSheetState(text,ok=null){
+  const el=$('reminderSheetState');if(!el)return;
+  el.textContent=text;
+  if(ok===true)el.style.color='var(--green)';
+  else if(ok===false)el.style.color='var(--red)';
+  else el.style.color='var(--muted)';
+}
+
+function scheduleReminderConfigSync(){
+  clearTimeout(reminderSheetSaveTimer);
+  reminderSheetSaveTimer=setTimeout(syncReminderConfigToSheet,350);
+}
+function scheduleDailyStateSync(){
+  clearTimeout(dailySheetSaveTimer);
+  dailySheetSaveTimer=setTimeout(syncDailyStateToSheet,350);
+}
+
+async function syncReminderConfigToSheet(){
+  if(!$('appScriptUrl')?.value.trim())return;
+  try{
+    setReminderSheetState('Saving reminders to Google Sheet…');
+    const r=await apiCall('reminders_save',{reminders:JSON.stringify(dailyReminders)});
+    if(!r.ok)throw new Error(r.error||'Could not save reminders');
+    setReminderSheetState(`Reminders synced • ${r.saved??dailyReminders.length} saved`,true);
+  }catch(e){
+    setReminderSheetState('Reminder sync error: '+e.message,false);
+  }
+}
+
+async function syncDailyStateToSheet(){
+  if(!$('appScriptUrl')?.value.trim())return;
+  try{
+    const date=localDateKey();
+    const all=dailyDoneMap();
+    const done=all[date]||{};
+    const water=getWaterState();
+    const r=await apiCall('daily_save',{
+      date,
+      reminders:JSON.stringify(dailyReminders),
+      done:JSON.stringify(done),
+      water:JSON.stringify(water)
+    });
+    if(!r.ok)throw new Error(r.error||'Could not save Daily Log');
+    setReminderSheetState(`Daily state synced • ${date}`,true);
+  }catch(e){
+    setReminderSheetState('Daily sync error: '+e.message,false);
+  }
+}
+
+async function syncRemindersFromSheet(){
+  if(!$('appScriptUrl')?.value.trim())return;
+  try{
+    setReminderSheetState('Loading reminders from Google Sheet…');
+    const date=localDateKey();
+    const r=await apiCall('reminders_get',{date});
+    if(!r.ok)throw new Error(r.error||'Could not load reminders');
+
+    // First use after upgrading: keep existing local reminders and seed the new Sheet tabs.
+    if(!Array.isArray(r.reminders)||r.reminders.length===0){
+      localStorage.setItem(DAILY_REMINDERS_KEY,JSON.stringify(dailyReminders));
+      await syncReminderConfigToSheet();
+      await syncDailyStateToSheet();
+      renderDaily();
+      setReminderSheetState('Existing reminders copied to Google Sheet',true);
+      return;
+    }
+
+    dailyReminders=r.reminders.map(x=>({
+      id:String(x.id||''),
+      name:String(x.name||''),
+      amount:String(x.amount||''),
+      time:String(x.time||''),
+      enabled:!!x.enabled
+    }));
+    localStorage.setItem(DAILY_REMINDERS_KEY,JSON.stringify(dailyReminders));
+
+    const all=dailyDoneMap();
+    all[date]=r.done&&typeof r.done==='object'?r.done:{};
+    localStorage.setItem(DAILY_DONE_KEY,JSON.stringify(all));
+
+    if(r.water){
+      localStorage.setItem(DAILY_WATER_KEY,JSON.stringify({
+        date,
+        current:Number(r.water.current)||0,
+        target:Number(r.water.target)||3
+      }));
+    }
+
+    renderDaily();
+    setReminderSheetState(`Loaded ${dailyReminders.length} reminders from Google Sheet`,true);
+  }catch(e){
+    // Keep local data if remote reminder sync fails.
+    setReminderSheetState('Using local reminder data • '+e.message,false);
+    renderDaily();
+  }
+}
+
+
+async function testConnection(){
+  try{
+    updateSyncUI(null,'Testing Apps Script connection…');
+    const r=await apiCall('ping');
+    if(!r.ok)throw new Error(r.error||'Connection failed');
+    updateSyncUI(true,`Connected to ${r.sheet||'Workout Log'} • ${r.rows??0} rows.`);
+  }catch(e){updateSyncUI(false,e.message);alert('Connection failed: '+e.message)}
+}
+async function syncFromSheet(silent=false){
+  try{
+    updateSyncUI(null,'Loading Workout Log from Google Sheet…');
+    const r=await apiCall('list');
+    if(!r.ok)throw new Error(r.error||'Could not load Workout Log');
+    if(!Array.isArray(r.rows))throw new Error('Apps Script returned invalid rows.');
+    data=r.rows.map(x=>({
+      id:x.id,
+      day:x.day||'',
+      exercise:x.exercise||'',
+      week:Number(x.week)||x.week||'',
+      date:x.date||'',
+      performance:x.performance||'',
+      status:x.status||((x.performance||'').trim()?'Completed':'No data'),
+      notes:x.notes||''
+    }));
+    const autoCandidate=isWeekComplete(latestWeek())?latestWeek()+1:latestWeek();
+    const mw=manualActiveWeek();
+    if(mw && mw<=autoCandidate)localStorage.removeItem('progressx-manual-active-week-v20');
+    localStorage.setItem(KEY,JSON.stringify(data));
+    rebuild();
+    updateSyncUI(true,`Synced ${data.length} rows from Google Sheet at ${new Date().toLocaleTimeString()}.`);
+    if(!silent)alert(`Synced ${data.length} workout rows from Google Sheet.`);
+  }catch(e){
+    updateSyncUI(false,e.message);
+    if(!silent)alert('Could not sync Google Sheet: '+e.message);
+  }
+}
+
+
+/* ===========================
+   V25 — SOUND + POP-UP ALARMS
+   =========================== */
+let progressxAudioCtx=null;
+let activeAlarmReminder=null;
+let alarmSoundTimer=null;
+let alarmStopTimer=null;
+
+function unlockProgressXAudio(){
+  try{
+    if(!progressxAudioCtx){
+      const AC=window.AudioContext||window.webkitAudioContext;
+      if(AC)progressxAudioCtx=new AC();
+    }
+    if(progressxAudioCtx&&progressxAudioCtx.state==='suspended')progressxAudioCtx.resume();
+  }catch{}
+}
+['pointerdown','touchstart','keydown'].forEach(ev=>{
+  window.addEventListener(ev,unlockProgressXAudio,{once:true,passive:true});
+});
+
+function playAlarmToneOnce(){
+  try{
+    unlockProgressXAudio();
+    if(!progressxAudioCtx||progressxAudioCtx.state!=='running')return;
+    const ctx=progressxAudioCtx;
+    const now=ctx.currentTime;
+    const sequence=[
+      [0.00,880,.16],[0.22,1046,.16],[0.44,880,.18],
+      [0.78,880,.16],[1.00,1046,.16],[1.22,1174,.23]
+    ];
+    sequence.forEach(([offset,freq,dur])=>{
+      const osc=ctx.createOscillator();
+      const gain=ctx.createGain();
+      osc.type='sine';
+      osc.frequency.setValueAtTime(freq,now+offset);
+      gain.gain.setValueAtTime(0.0001,now+offset);
+      gain.gain.exponentialRampToValueAtTime(0.18,now+offset+.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001,now+offset+dur);
+      osc.connect(gain);gain.connect(ctx.destination);
+      osc.start(now+offset);osc.stop(now+offset+dur+.03);
+    });
+  }catch{}
+}
+
+function startAlarmSound(){
+  stopAlarmSound();
+  playAlarmToneOnce();
+  alarmSoundTimer=setInterval(playAlarmToneOnce,2600);
+  alarmStopTimer=setTimeout(stopAlarmSound,20000);
+}
+function stopAlarmSound(){
+  if(alarmSoundTimer){clearInterval(alarmSoundTimer);alarmSoundTimer=null}
+  if(alarmStopTimer){clearTimeout(alarmStopTimer);alarmStopTimer=null}
+}
+
+function showAlarmPopup(reminder){
+  activeAlarmReminder=reminder||null;
+  if(!reminder)return;
+  const o=$('alarmOverlay');
+  $('alarmTitle').textContent=reminder.name||'Daily reminder';
+  $('alarmAmount').textContent=reminder.amount||'';
+  $('alarmTime').textContent=`Scheduled for ${reminder.time||'today'}`;
+  o.classList.add('show');
+  startAlarmSound();
+}
+function closeAlarmPopup(){
+  $('alarmOverlay')?.classList.remove('show');
+  stopAlarmSound();
+}
+function completeActiveAlarm(){
+  if(activeAlarmReminder&&activeAlarmReminder.id!=='__test__'){
+    const all=dailyDoneMap(),k=localDateKey();
+    if(!all[k])all[k]={};
+    all[k][activeAlarmReminder.id]=true;
+    localStorage.setItem(DAILY_DONE_KEY,JSON.stringify(all));
+  }
+  closeAlarmPopup();
+  activeAlarmReminder=null;
+  renderDaily();
+  scheduleDailyStateSync();
+}
+function dismissActiveAlarm(){
+  closeAlarmPopup();
+  activeAlarmReminder=null;
+}
+function snoozeActiveAlarm(minutes=10){
+  if(!activeAlarmReminder)return;
+  const until=Date.now()+Number(minutes)*60000;
+  const snoozes=getDailySnoozes();
+  snoozes[activeAlarmReminder.id]=until;
+  localStorage.setItem('progressx-reminder-snooze',JSON.stringify(snoozes));
+  closeAlarmPopup();
+  showDailyNotice('Reminder snoozed',`${activeAlarmReminder.name} will remind you again in ${minutes} minutes.`);
+  activeAlarmReminder=null;
+}
+function getDailySnoozes(){
+  try{return JSON.parse(localStorage.getItem('progressx-reminder-snooze'))||{}}catch{return {}}
+}
+function checkSnoozedReminders(){
+  const snoozes=getDailySnoozes();
+  let changed=false;
+  for(const [id,until] of Object.entries(snoozes)){
+    if(Date.now()>=Number(until)){
+      const r=dailyReminders.find(x=>x.id===id&&x.enabled&&!dailyIsDone(x.id));
+      if(r){
+        triggerFullReminder(r,true);
+      }
+      delete snoozes[id];
+      changed=true;
+    }
+  }
+  if(changed)localStorage.setItem('progressx-reminder-snooze',JSON.stringify(snoozes));
+}
+function triggerFullReminder(r,isSnooze=false){
+  showAlarmPopup(r);
+  showSystemOrInAppNotification(`ProgressX • ${r.name}`,`${r.amount||'Daily reminder'}${isSnooze?' • Snoozed reminder':''}`);
+}
+
+/* ===========================
+   V22 — DAILY REMINDERS
+   =========================== */
+const DAILY_REMINDERS_KEY='progressx-reminders';
+const DAILY_DONE_KEY='progressx-reminder-done';
+const DAILY_WATER_KEY='progressx-water';
+const DEFAULT_DAILY_REMINDERS=[
+  {id:'multivitamin',name:'Multivitamin',amount:'1 serving',time:'09:00',enabled:true},
+  {id:'creatine',name:'Creatine',amount:'5 g',time:'14:00',enabled:true},
+  {id:'whey',name:'Whey Protein',amount:'1 serving',time:'18:00',enabled:true}
+];
+
+(function migrateProgressXReminderData(){
+  try{
+    const migrateFirst=(target,sources)=>{
+      if(localStorage.getItem(target)!=null)return;
+      for(const source of sources){
+        const value=localStorage.getItem(source);
+        if(value!=null){
+          localStorage.setItem(target,value);
+          break;
+        }
+      }
+    };
+
+    migrateFirst('progressx-reminders',[
+      'progressx-daily-reminders-v22',
+      'forgelog-daily-reminders-v22',
+      'forgelog-reminders-v22',
+      'forgelog-reminders'
+    ]);
+
+    migrateFirst('progressx-reminder-done',[
+      'progressx-daily-done-v22',
+      'forgelog-daily-done-v22',
+      'forgelog-reminder-log-v22'
+    ]);
+
+    migrateFirst('progressx-water',[
+      'progressx-daily-water-v22',
+      'forgelog-daily-water-v22',
+      'forgelog-water-v22'
+    ]);
+
+    migrateFirst('progressx-reminder-snooze',[
+      'progressx-daily-snooze-v25',
+      'forgelog-daily-snooze-v25'
+    ]);
+  }catch(e){}
+})();
+
+let dailyReminders=loadDailyReminders();
+let dailyTimer=null;
+
+function localDateKey(){
+  const d=new Date(),y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),day=String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
+function loadDailyReminders(){
+  try{
+    const x=JSON.parse(localStorage.getItem(DAILY_REMINDERS_KEY));
+    return Array.isArray(x)&&x.length?x:clone(DEFAULT_DAILY_REMINDERS);
+  }catch{return clone(DEFAULT_DAILY_REMINDERS)}
+}
+function saveDailyReminders(){
+  localStorage.setItem(DAILY_REMINDERS_KEY,JSON.stringify(dailyReminders));
+  renderDaily();
+  scheduleReminderConfigSync();
+  scheduleDailyStateSync();
+}
+function dailyDoneMap(){
+  try{return JSON.parse(localStorage.getItem(DAILY_DONE_KEY))||{}}catch{return {}}
+}
+function dailyIsDone(id){
+  const all=dailyDoneMap();
+  return !!(all[localDateKey()]&&all[localDateKey()][id]);
+}
+function toggleDailyDone(id){
+  const all=dailyDoneMap(),k=localDateKey();
+  if(!all[k])all[k]={};
+  all[k][id]=!all[k][id];
+  localStorage.setItem(DAILY_DONE_KEY,JSON.stringify(all));
+  renderDaily();
+  scheduleDailyStateSync();
+}
+function toggleDailyForm(open=true){
+  const f=$('dailyAddForm');if(!f)return;
+  f.classList.toggle('open',!!open);
+  if(open){
+    if(!$('newDailyTime').value)$('newDailyTime').value='12:00';
+    setTimeout(()=>$('newDailyName')?.focus(),50);
+  }
+}
+function quickDailyPreset(name,amount,time){
+  $('newDailyName').value=name;
+  $('newDailyAmount').value=amount;
+  $('newDailyTime').value=time;
+}
+function saveNewDailyReminder(){
+  const name=$('newDailyName').value.trim();
+  const amount=$('newDailyAmount').value.trim();
+  const time=$('newDailyTime').value||'12:00';
+  if(!name){alert('Enter a supplement or reminder name.');return}
+  dailyReminders.push({
+    id:'daily_'+Date.now(),
+    name,
+    amount,
+    time,
+    enabled:true
+  });
+  $('newDailyName').value='';
+  $('newDailyAmount').value='';
+  $('newDailyTime').value='12:00';
+  toggleDailyForm(false);
+  saveDailyReminders();
+}
+function editDailyReminder(id,field,value){
+  const r=dailyReminders.find(x=>x.id===id);if(!r)return;
+  r[field]=field==='enabled'?!!value:value;
+  saveDailyReminders();
+}
+function deleteDailyReminder(id){
+  if(!confirm('Delete this daily reminder?'))return;
+  dailyReminders=dailyReminders.filter(x=>x.id!==id);
+  saveDailyReminders();
+}
+function renderDaily(){
+  const grid=$('dailyReminderGrid');if(!grid)return;
+  const active=dailyReminders.filter(r=>r.enabled);
+  $('dailyDone').textContent=active.filter(r=>dailyIsDone(r.id)).length;
+  $('dailyTotal').textContent=active.length;
+
+  grid.innerHTML=dailyReminders.map(r=>{
+    const done=dailyIsDone(r.id);
+    return `<div class="reminderCard ${done?'done':''}">
+      <div class="reminderTop">
+        <div>
+          <div class="reminderName">${esc(r.name)}</div>
+          <div class="reminderMeta">${esc(r.amount||'')} ${r.time?'• '+esc(r.time):''}</div>
+        </div>
+        <button class="btn ${done?'primary':'soft'}" onclick="toggleDailyDone('${esc(r.id)}')">${done?'✓ Done':'Mark done'}</button>
+      </div>
+      <div class="reminderControls">
+        <input value="${esc(r.name)}" onchange="editDailyReminder('${esc(r.id)}','name',this.value)">
+        <input type="time" value="${esc(r.time||'')}" onchange="editDailyReminder('${esc(r.id)}','time',this.value)">
+        <input value="${esc(r.amount||'')}" onchange="editDailyReminder('${esc(r.id)}','amount',this.value)">
+        <label class="tiny muted" style="display:flex;align-items:center;gap:8px">
+          <input class="reminderSwitch" type="checkbox" ${r.enabled?'checked':''} onchange="editDailyReminder('${esc(r.id)}','enabled',this.checked)">
+          ${r.enabled?'Reminder ON':'Reminder OFF'}
+        </label>
+      </div>
+      <button class="btn danger" style="margin-top:8px" onclick="deleteDailyReminder('${esc(r.id)}')">Delete</button>
+    </div>`;
+  }).join('');
+
+  renderWater();
+  updateNotificationState();
+}
+function getWaterState(){
+  try{
+    const x=JSON.parse(localStorage.getItem(DAILY_WATER_KEY));
+    if(!x||x.date!==localDateKey())return {date:localDateKey(),current:0,target:Number(x?.target)||3};
+    return {date:localDateKey(),current:Number(x.current)||0,target:Number(x.target)||3};
+  }catch{return {date:localDateKey(),current:0,target:3}}
+}
+function saveWaterState(w){localStorage.setItem(DAILY_WATER_KEY,JSON.stringify(w));renderWater();scheduleDailyStateSync()}
+function addWater(l){const w=getWaterState();w.current=Math.max(0,w.current+Number(l||0));saveWaterState(w)}
+function resetWater(){const w=getWaterState();w.current=0;saveWaterState(w)}
+function setWaterTarget(v){const w=getWaterState();w.target=Math.max(.5,Number(v)||3);saveWaterState(w)}
+function setWaterCurrent(v){const w=getWaterState();w.current=Math.max(0,Number(v)||0);saveWaterState(w)}
+function renderWater(){
+  const w=getWaterState(),pct=Math.min(100,w.target>0?(w.current/w.target)*100:0);
+  if($('waterFill'))$('waterFill').style.width=pct+'%';
+  if($('waterNow'))$('waterNow').textContent=`${Number(w.current.toFixed(2))} L`;
+  if($('waterGoal'))$('waterGoal').textContent=`${Number(w.target.toFixed(2))} L`;
+  if($('waterTargetInput'))$('waterTargetInput').value=w.target;
+  if($('waterCurrentInput'))$('waterCurrentInput').value=w.current;
+}
+function updateNotificationState(){
+  const el=$('notificationState');
+  const banner=$('notifyBanner');
+  const bannerText=$('notifyBannerText');
+  const btn=$('notifyBannerBtn');
+  const isLocalFile=location.protocol==='file:';
+
+  if(banner)banner.classList.remove('good');
+
+  // ProgressX popup + sound is the primary reminder channel and works while the app is open.
+  if(!('Notification' in window)){
+    if(el)el.textContent='ProgressX popup + sound: ON • System alerts unavailable in this browser.';
+    if(bannerText)bannerText.textContent='Popup + sound reminders are active. System notifications are unavailable here.';
+    if(btn)btn.style.display='none';
+    return;
+  }
+
+  if(Notification.permission==='granted'){
+    if(el)el.textContent='Popup + sound: ON • System alerts: ON.';
+    if(banner)banner.classList.add('good');
+    if(bannerText)bannerText.textContent='Popup, sound and system notifications are enabled.';
+    if(btn){btn.textContent='System alerts enabled';btn.disabled=true;btn.style.display='inline-flex'}
+    return;
+  }
+
+  if(Notification.permission==='denied'){
+    if(el)el.textContent='Popup + sound: ON • System alerts unavailable.';
+    if(bannerText)bannerText.textContent=isLocalFile
+      ? 'Popup + sound reminders are active. Mobile browsers commonly block system notifications for local HTML files.'
+      : 'Popup + sound reminders are active. System notifications are blocked by browser permission.';
+    if(btn){btn.textContent='Popup + sound active';btn.disabled=true;btn.style.display='inline-flex'}
+    return;
+  }
+
+  if(el)el.textContent='Popup + sound: ON • System alerts optional.';
+  if(bannerText)bannerText.textContent=isLocalFile
+    ? 'Popup + sound reminders are active. For true mobile system notifications when the app is closed, ProgressX must be hosted over HTTPS/PWA.'
+    : 'Popup + sound reminders are active. You can also enable system notifications.';
+  if(btn){btn.textContent='Enable system alerts';btn.disabled=false;btn.style.display='inline-flex'}
+}
+async function requestDailyNotifications(){
+  if(!('Notification' in window)){
+    showDailyNotice('ProgressX reminders','Popup + sound reminders are already active while ProgressX is open.');
+    updateNotificationState();
+    return;
+  }
+  try{
+    const p=await Notification.requestPermission();
+    updateNotificationState();
+    if(p==='granted'){
+      showSystemOrInAppNotification('ProgressX','System notifications enabled. Popup + sound remain active too.');
+    }else{
+      showDailyNotice('ProgressX reminders','System notification permission was not enabled. Popup + sound reminders still work while ProgressX is open.');
+    }
+  }catch(e){
+    updateNotificationState();
+    showDailyNotice('ProgressX reminders','System alerts are unavailable here, but popup + sound reminders remain active.');
+  }
+}
+function showDailyNotice(title,body){
+  const el=$('dailyNotice');if(!el)return;
+  el.innerHTML=`<b>${esc(title)}</b><div class="tiny muted">${esc(body||'')}</div>`;
+  el.classList.add('show');
+  clearTimeout(showDailyNotice._t);
+  showDailyNotice._t=setTimeout(()=>el.classList.remove('show'),7000);
+}
+function showSystemOrInAppNotification(title,body){
+  // In-app toast is always shown so a reminder never silently disappears.
+  showDailyNotice(title,body);
+
+  // System notification is an additional channel when the user has granted permission.
+  try{
+    if('Notification' in window&&Notification.permission==='granted'){
+      new Notification(title,{body,tag:'progressx-'+title});
+    }
+  }catch{}
+}
+function testDailyNotification(){
+  const demo={id:'__test__',name:'Test reminder',amount:'Sound + pop-up test',time:new Date().toTimeString().slice(0,5)};
+  showAlarmPopup(demo);
+  showSystemOrInAppNotification('ProgressX test','Sound and pop-up are working. System notification also appears if permission is granted.');
+}
+function minutesFromHHMM(v){
+  const m=String(v||'').match(/^(\d{1,2}):(\d{2})$/);
+  if(!m)return null;
+  return Number(m[1])*60+Number(m[2]);
+}
+function checkDailyReminders(){
+  const d=new Date();
+  const nowMinutes=d.getHours()*60+d.getMinutes();
+  const firedKey='progressx-daily-fired-'+localDateKey();
+  let fired={};try{fired=JSON.parse(localStorage.getItem(firedKey))||{}}catch{}
+
+  // Fire when the scheduled time has been reached or passed.
+  // This avoids missing a reminder if a mobile browser throttles timers in the background.
+  dailyReminders
+    .filter(r=>r.enabled&&!dailyIsDone(r.id)&&!fired[r.id])
+    .forEach(r=>{
+      const due=minutesFromHHMM(r.time);
+      if(due===null)return;
+      if(nowMinutes>=due){
+        triggerFullReminder(r,false);
+        fired[r.id]=new Date().toISOString();
+      }
+    });
+
+  localStorage.setItem(firedKey,JSON.stringify(fired));
+}
+function startDailyReminderClock(){
+  if(dailyTimer)clearInterval(dailyTimer);
+  renderDaily();
+  checkDailyReminders();
+  checkSnoozedReminders();
+  dailyTimer=setInterval(()=>{checkDailyReminders();checkSnoozedReminders()},10000);
+}
+
+function n(id){return Number($(id).value)}function fmt(v,d=0){return Number.isFinite(v)?v.toLocaleString(undefined,{maximumFractionDigits:d}):'—'}
+
+function calcTDEE(){
+  const t=readTdeeCalculator();
+  if(!t)return $('tResult').textContent='Enter valid age, weight and height.';
+
+  $('tResult').innerHTML=
+    `<div class="resultBig">${fmt(t.target)} kcal/day</div>`+
+    `<div class="resultRows">`+
+      `<div class="mini"><b>${fmt(t.bmr)}</b><span class="tiny muted">BMR</span></div>`+
+      `<div class="mini"><b>${fmt(t.tdee)}</b><span class="tiny muted">Estimated TDEE</span></div>`+
+    `</div>`;
+
+  $('mCal').value=Math.round(t.target);
+  $('mWeight').value=t.weight;
+
+  const old=loadTdeeProfile()||{};
+  saveTdeeProfile({
+    ...old,
+    sex:t.sex,
+    age:t.age,
+    weight:t.weight,
+    height:t.height,
+    activity:t.activity,
+    goal:t.goal,
+    bmr:Math.round(t.bmr),
+    estimatedTdee:Math.round(t.tdee),
+    targetCalories:Math.round(t.target)
+  });
+}
+
+function calcMacros(){
+  const calories=n('mCal');
+  const weight=n('mWeight');
+  const macro=readMacroCalculator(calories,weight);
+
+  if(!macro){
+    return $('mResult').textContent=
+      'Enter valid values. Protein + fat targets must fit inside total calories.';
+  }
+
+  $('mResult').innerHTML=
+    `<div class="resultRows">`+
+      `<div class="mini"><b>${fmt(macro.protein)} g</b><span class="tiny muted">Protein</span></div>`+
+      `<div class="mini"><b>${fmt(macro.fat)} g</b><span class="tiny muted">Fat</span></div>`+
+      `<div class="mini"><b>${fmt(macro.carbs)} g</b><span class="tiny muted">Carbs</span></div>`+
+      `<div class="mini"><b>${fmt(macro.protein*4+macro.fat*9+macro.carbs*4)}</b><span class="tiny muted">kcal check</span></div>`+
+    `</div>`;
+
+  const old=loadTdeeProfile()||{};
+  saveTdeeProfile({
+    ...old,
+    weight,
+    targetCalories:Math.round(calories),
+    proteinPerKg:macro.proteinPerKg,
+    fatPerKg:macro.fatPerKg
+  });
+}
+
+function calc1RM(){const w=n('rWeight'),r=n('rReps');if(!(w>0&&r>=1&&r<=20))return $('rResult').textContent='Use a valid load and 1–20 reps.';if(r===1)return $('rResult').innerHTML=`<div class="resultBig">${fmt(w,1)}</div><span class="tiny muted">Actual 1RM set</span>`;const e=w*(1+r/30),b=w*36/(37-r),l=100*w/(101.3-2.67123*r),avg=(e+b+l)/3;$('rResult').innerHTML=`<div class="resultBig">≈ ${fmt(avg,1)}</div><div class="resultRows"><div class="mini"><b>${fmt(e,1)}</b><span class="tiny muted">Epley</span></div><div class="mini"><b>${fmt(b,1)}</b><span class="tiny muted">Brzycki</span></div><div class="mini"><b>${fmt(l,1)}</b><span class="tiny muted">Lander</span></div></div>`}
+function calcPlates(){const target=n('pTarget'),bar=n('pBar'),plates=$('pAvailable').value.split(',').map(Number).filter(x=>x>0).sort((a,b)=>b-a);if(!(target>=bar&&bar>=0&&plates.length))return $('pResult').textContent='Check target, bar and plate sizes.';let side=(target-bar)/2,remain=side,out=[];for(const p of plates){const q=Math.floor((remain+1e-9)/p);if(q){out.push(`${q}×${p}`);remain-=q*p}}const actual=target-remain*2;$('pResult').innerHTML=`<div class="resultBig">Per side: ${out.join(' + ')||'No plates'}</div><div class="tiny muted" style="margin-top:6px">Built total: ${fmt(actual,2)} kg${Math.abs(remain)>0.001?` · missing ${fmt(remain*2,2)} kg for exact target`:''}</div>`}
+function calcVolume(){const s=n('vSets'),r=n('vReps'),w=n('vWeight');if(!(s>0&&r>0&&w>=0))return $('vResult').textContent='Enter valid sets, reps and load.';const total=s*r*w;$('vResult').innerHTML=`<div class="resultBig">${fmt(total,1)} kg</div><span class="tiny muted">${s} sets × ${r} reps × ${w} kg</span>`}
+function calcOverload(){const w=n('oWeight'),sets=n('oSets'),min=n('oMin'),max=n('oMax'),step=n('oStep'),reps=$('oActual').value.split(',').map(x=>Number(x.trim())).filter(Number.isFinite);if(!(w>0&&sets>0&&min>0&&max>=min&&reps.length===sets))return $('oResult').textContent=`Enter exactly ${sets||'the'} working-set reps, comma separated.`;let msg;if(reps.every(x=>x>=max)){const nw=w*(1+step/100);msg=`Increase to about ${fmt(nw,1)} next time (+${step}%).`}else if(reps.every(x=>x>=min)){msg='Keep the same weight and add reps until every working set reaches the top of the range.'}else{msg='Keep or reduce the load slightly and restore clean reps / ROM before progressing.'}$('oResult').innerHTML=`<div class="resultBig">${msg}</div><div class="tiny muted" style="margin-top:6px">Technique → reps → load.</div>`}
+function calcHydration(){const w=n('hWeight'),mins=n('hMinutes');if(!(w>0&&mins>=0))return $('hResult').textContent='Enter valid body weight and training time.';const base=w*35/1000,training=mins/60*.5,total=base+training;$('hResult').innerHTML=`<div class="resultBig">≈ ${fmt(total,2)} L/day</div><div class="tiny muted">Base ${fmt(base,2)} L + ~${fmt(training,2)} L training allowance. Adjust to thirst, urine color, heat and sweat rate.</div>`}
+function calcCreatine(){const w=n('cWeight');if(!(w>0))return $('cResult').textContent='Enter body weight.';const weightBased=w*.03,maint=Math.min(5,Math.max(3,weightBased));const load=w*.3;$('cResult').innerHTML=`<div class="resultBig">${fmt(maint,1)}–5 g/day</div><div class="tiny muted">Weight-based maintenance ≈ ${fmt(weightBased,1)} g/day. Optional loading ≈ ${fmt(load,1)} g/day split into 4 doses for ~5–7 days, then maintenance.</div>`}
+function calcBMI(){const w=n('bWeight'),h=n('bHeight')/100;if(!(w>0&&h>0))return $('bResult').textContent='Enter weight and height.';const bmi=w/(h*h);let cat=bmi<18.5?'Underweight':bmi<25?'Standard range':bmi<30?'Overweight range':'Obesity range';$('bResult').innerHTML=`<div class="resultBig">${fmt(bmi,1)}</div><span class="tiny muted">${cat}; interpret carefully in muscular lifters.</span>`}
+function toggleHip(){$('bfHip').classList.toggle('hide',$('bfSex').value==='male')}
+function calcBF(){const sex=$('bfSex').value,h=n('bfHeight'),neck=n('bfNeck'),waist=n('bfWaist'),hip=n('bfHip');if(!(h>0&&neck>0&&waist>neck&&(sex==='male'||hip>0)))return $('bfResult').textContent='Enter valid circumference measurements.';let bf;if(sex==='male')bf=495/(1.0324-0.19077*Math.log10(waist-neck)+0.15456*Math.log10(h))-450;else bf=495/(1.29579-0.35004*Math.log10(waist+hip-neck)+0.22100*Math.log10(h))-450;$('bfResult').innerHTML=`<div class="resultBig">≈ ${fmt(bf,1)}%</div><div class="tiny muted">Use the same tape technique each time; trend is more useful than a single reading.</div>`}
+init();
+</script><div id="dailyNotice" class="reminderNotice"></div>
+<div id="alarmOverlay" class="alarmOverlay">
+  <div class="alarmBox">
+    <div id="alarmIcon" class="alarmIcon alarmPulse">🔔</div>
+    <div class="tiny muted">PROGRESSX DAILY REMINDER</div>
+    <h2 id="alarmTitle">Reminder</h2>
+    <div id="alarmAmount" class="alarmAmount"></div>
+    <div id="alarmTime" class="alarmTime"></div>
+    <div class="alarmActions">
+      <button class="btn primary" onclick="completeActiveAlarm()">✓ Done</button>
+      <button class="btn soft" onclick="snoozeActiveAlarm(10)">Snooze 10 min</button>
+    </div>
+    <button class="btn soft" style="width:100%;margin-top:9px" onclick="dismissActiveAlarm()">Dismiss</button>
+  </div>
+</div>
+
+
+<div id="barcodeModal" class="barcodeModal">
+  <div class="barcodeBox">
+    <div class="panelHead">
+      <div>
+        <h3>Scan product barcode</h3>
+        <div class="tiny muted">Point the camera at an EAN / UPC barcode. ProgressX will search Open Food Facts.</div>
+      </div>
+      <button class="icon" onclick="closeBarcodeScanner()">✕</button>
+    </div>
+
+    <div id="barcodeReader"></div>
+
+    <div class="barcodeManual">
+      <input id="barcodeManualInput" inputmode="numeric" placeholder="Or enter barcode manually">
+      <button class="btn primary" onclick="lookupManualBarcode()">Search barcode</button>
+    </div>
+
+    <div id="barcodeScannerStatus" class="callout" style="margin-top:10px">
+      Camera scanner has not started yet.
+    </div>
+
+    <div id="barcodeResult" class="barcodeResult"></div>
+  </div>
+</div>
+
+</body></html>
