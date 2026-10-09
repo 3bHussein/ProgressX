@@ -1003,7 +1003,10 @@ textarea{resize:vertical}
       <input id="importFile" class="hide" type="file" accept="application/json">
     </div>
     <div class="callout" style="margin-top:12px">
-      Google Sheet is the main database in this build. JSON/CSV remain available as backups.
+      <b>GitHub Demo Mode:</b> this web build starts with the same DEMO-style data used by
+      <b>template/ProgressX-Template-Demo.xlsx</b>. Nothing is connected to a personal Sheet by default.
+      To use ProgressX for real data, create your own Google Sheet from the template and connect your own Apps Script /exec URL below.
+      JSON/CSV remain available as backups.
     </div>
   </div>
 
@@ -1968,12 +1971,36 @@ const FOOD_LOG_KEY='progressx-food-log';
 const NUTRITION_TARGETS_KEY='progressx-nutrition-targets';
 const TDEE_PROFILE_KEY='progressx-tdee-profile';
 
-let foodProducts=loadLocalArray(FOOD_PRODUCTS_KEY);
-let foodLog=loadLocalArray(FOOD_LOG_KEY);
+/*
+  GitHub DEMO data
+  ----------------
+  The public web build starts with demo content that mirrors the purpose and
+  structure of template/ProgressX-Template-Demo.xlsx. It does not include any
+  personal ProgressX history or a private Apps Script endpoint.
+*/
+const PROGRESSX_DEMO_FOOD_PRODUCTS=[
+  {id:'demo_food_1',barcode:'',name:'Chicken Breast, Cooked',servingQty:100,servingUnit:'g',calories:165,protein:31,carbs:0,fat:3.6},
+  {id:'demo_food_2',barcode:'',name:'White Rice, Cooked',servingQty:100,servingUnit:'g',calories:130,protein:2.7,carbs:28,fat:0.3},
+  {id:'demo_food_3',barcode:'0000000000000',name:'Demo Protein Bar',servingQty:60,servingUnit:'g',calories:220,protein:20,carbs:24,fat:7}
+];
+
+const PROGRESSX_DEMO_FOOD_LOG=[
+  {id:'demo_log_1',date:localDateKey(),meal:'Breakfast',productId:'demo_food_3',name:'Demo Protein Bar',amount:60,servingQty:60,servingUnit:'g',calories:220,protein:20,carbs:24,fat:7},
+  {id:'demo_log_2',date:localDateKey(),meal:'Lunch',productId:'demo_food_1',name:'Chicken Breast, Cooked',amount:200,servingQty:100,servingUnit:'g',calories:330,protein:62,carbs:0,fat:7.2},
+  {id:'demo_log_3',date:localDateKey(),meal:'Lunch',productId:'demo_food_2',name:'White Rice, Cooked',amount:200,servingQty:100,servingUnit:'g',calories:260,protein:5.4,carbs:56,fat:0.6}
+];
+
+let foodProducts=loadLocalArray(FOOD_PRODUCTS_KEY,PROGRESSX_DEMO_FOOD_PRODUCTS);
+let foodLog=loadLocalArray(FOOD_LOG_KEY,PROGRESSX_DEMO_FOOD_LOG);
 let nutritionTargets=loadNutritionTargets();
 
-function loadLocalArray(key){
-  try{const x=JSON.parse(localStorage.getItem(key));return Array.isArray(x)?x:[]}catch{return []}
+function loadLocalArray(key,fallback=[]){
+  try{
+    const raw=localStorage.getItem(key);
+    if(raw==null)return clone(fallback);
+    const x=JSON.parse(raw);
+    return Array.isArray(x)?x:clone(fallback);
+  }catch{return clone(fallback)}
 }
 
 function loadTdeeProfile(){
